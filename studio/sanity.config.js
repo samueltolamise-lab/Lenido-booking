@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'lenido-studio',
   title: 'Le Nido — Content Studio',
 
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'YOUR_PROJECT_ID',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'tdpuw4w3',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [

@@ -132,6 +132,12 @@ export const property = defineType({
           type: 'number',
           description: 'Optional — leave blank to hide.',
         }),
+        defineField({
+          name: 'cautionFee',
+          title: 'Caution Fee (₦)',
+          type: 'number',
+          description: 'Refundable deposit collected at check-in. Leave blank if not applicable.',
+        }),
       ],
     }),
 

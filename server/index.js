@@ -39,7 +39,18 @@ app.use('/api/bookings', bookingRouter);
 app.use('/api/payments', paymentRouter);
 app.use('/api/calendar', calendarRouter);
 
-// Expose Paystack public key to frontend safely
+// Expose public config to frontend (safe — no secrets)
+app.get('/api/config', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      paystackPublicKey: process.env.PAYSTACK_PUBLIC_KEY || '',
+      whatsappNumber: process.env.HOST_WHATSAPP_NUMBER || '2348000000000',
+    }
+  });
+});
+
+// Keep old route for backwards compatibility
 app.get('/api/config/public-key', (req, res) => {
   res.json({ success: true, data: { paystackPublicKey: process.env.PAYSTACK_PUBLIC_KEY || '' } });
 });
