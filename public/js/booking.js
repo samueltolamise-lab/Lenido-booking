@@ -273,7 +273,7 @@ async function fetchPricing() {
     currentPricing = json.data;
     renderBreakdown(json.data);
     payBtn.disabled    = false;
-    payBtn.textContent = `Pay ${formatNGN(json.data.total)} — Confirm Booking`;
+    payBtn.textContent = `Proceed to Checkout — ${formatNGN(json.data.total)}`;
     clearError();
   } catch {
     showError('Could not calculate price. Please try again.');
@@ -287,55 +287,21 @@ function debouncedFetchPricing() {
 }
 
 // ============================================================
-// Form submission
+// Form submission — navigate to dedicated booking page
 // ============================================================
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', e => {
   e.preventDefault();
   clearError();
 
-  const checkIn         = document.getElementById('check-in').value;
-  const checkOut        = document.getElementById('check-out').value;
-  const guestName       = document.getElementById('guest-name').value.trim();
-  const guestEmail      = document.getElementById('guest-email').value.trim();
-  const guestPhone      = document.getElementById('guest-phone').value.trim();
-  const specialRequests = document.getElementById('special-requests').value.trim();
+  const checkIn  = document.getElementById('check-in').value;
+  const checkOut = document.getElementById('check-out').value;
 
   if (!checkIn || !checkOut) return showError('Please select check-in and check-out dates.');
-  if (!guestName)            return showError('Please enter your full name.');
-  if (!guestEmail)           return showError('Please enter your email address.');
-  if (!guestPhone)           return showError('Please enter your WhatsApp number.');
   if (!currentPricing)       return showError('Please wait for the price to load.');
 
-  payBtn.disabled    = true;
-  payBtn.textContent = 'Initialising payment…';
-
-  try {
-    const res  = await fetch('/api/bookings/initialize', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ propertyId, checkIn, checkOut, guestName, guestEmail, guestPhone, specialRequests }),
-    });
-    const json = await res.json();
-
-    if (!json.success) {
-      showError(json.error || 'Booking initialisation failed. Please try again.');
-      payBtn.disabled    = false;
-      payBtn.textContent = `Pay ${formatNGN(currentPricing.total)} — Confirm Booking`;
-      return;
-    }
-
-    window.openPaystackPopup({
-      email:      guestEmail,
-      amount:     json.data.amount * 100,
-      reference:  json.data.reference,
-      accessCode: json.data.accessCode,
-      guestName,
-    });
-  } catch {
-    showError('Network error. Please check your connection and try again.');
-    payBtn.disabled    = false;
-    payBtn.textContent = `Pay ${formatNGN(currentPricing.total)} — Confirm Booking`;
-  }
+  // Hand off to the dedicated booking page with dates pre-filled
+  const url = `/booking.html?id=${encodeURIComponent(propertyId)}&checkIn=${checkIn}&checkOut=${checkOut}`;
+  window.location.href = url;
 });
 
 // ============================================================

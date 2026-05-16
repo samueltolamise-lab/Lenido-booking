@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Stay — Le NIDO by Bondd</title>
+  <meta name="description" content="Complete your booking at Le NIDO by Bondd. Premium short-term rentals in Lekki, Lagos." />
+
+  <!-- Brand Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <!-- Flatpickr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
+  <style>
+    /* ── Flatpickr brand overrides ── */
+    .flatpickr-months .flatpickr-month,
+    .flatpickr-weekdays,
+    span.flatpickr-weekday {
+      background: var(--royale) !important;
+      color: var(--ivoire) !important;
+    }
+    .flatpickr-current-month .flatpickr-monthDropdown-months {
+      background: var(--royale);
+    }
+    .flatpickr-day.selected,
+    .flatpickr-day.startRange,
+    .flatpickr-day.endRange {
+      background: var(--royale) !important;
+      border-color: var(--royale) !important;
+    }
+    .flatpickr-day.inRange {
+      background: rgba(0, 12, 55, 0.08) !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* ================================================================
+       BOOKING PAGE LAYOUT
+    ================================================================ */
+    .booking-page {
+      min-height: 100vh;
+      background: var(--color-bg);
+      padding: 48px 0 80px;
+    }
+
+    .booking-page-header {
+      margin-bottom: 40px;
+    }
+
+    .booking-page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--royale);
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .booking-page-header p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+    }
+
+    .booking-progress {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 36px;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .progress-step.active {
+      color: var(--royale);
+    }
+
+    .progress-step.done {
+      color: var(--color-success);
+    }
+
+    .progress-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--color-border);
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .progress-step.active .progress-num {
+      background: var(--royale);
+      color: #fff;
+    }
+
+    .progress-divider {
+      flex: 1;
+      max-width: 48px;
+      height: 1px;
+      background: var(--color-border);
+      margin: 0 10px;
+    }
+
+    /* ── Two-column checkout layout ── */
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+      /* On mobile: summary first, form second */
+      .property-summary-col { order: 1; }
+      .checkout-form-col    { order: 2; }
+    }
+
+    /* ================================================================
+       LEFT COL — Property Summary
+    ================================================================ */
+    .property-summary-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+      margin-bottom: 4px;
+    }
+
+    .back-link:hover {
+      color: var(--royale);
+    }
+
+    .back-link svg { flex-shrink: 0; }
+
+    /* Property card */
+    .prop-summary-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .prop-summary-img-wrap {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      background: var(--royale);
+    }
+
+    .prop-summary-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .prop-summary-card:hover .prop-summary-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .prop-summary-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .prop-summary-body {
+      padding: 24px;
+    }
+
+    .prop-summary-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--royale);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .prop-summary-location {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    .prop-summary-specs {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--color-border-light);
+      border-bottom: 1px solid var(--color-border-light);
+      margin-bottom: 16px;
+    }
+
+    .spec-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+    }
+
+    .spec-pill svg {
+      color: var(--royale);
+      flex-shrink: 0;
+    }
+
+    .prop-summary-pricing {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pricing-from {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .pricing-main {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--royale);
+      letter-spacing: -0.03em;
+    }
+
+    .pricing-main span {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--color-text-muted);
+    }
+
+    .pricing-alt {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Amenities highlights */
+    .amenities-highlights {
+      background: var(--peach-light);
+      border: 1px solid rgba(255, 192, 156, 0.3);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+
+    .amenities-highlights h3 {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--royale);
+      margin-bottom: 12px;
+    }
+
+    .amenity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .amenity-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      color: var(--color-text);
+    }
+
+    .amenity-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--peach);
+      flex-shrink: 0;
+    }
+
+    /* Trust strip */
+    .checkout-trust {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 18px 20px;
+      background: var(--royale);
+      border-radius: var(--radius);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .trust-item-icon {
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .trust-item-text strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ivoire);
+      margin-bottom: 1px;
+    }
+
+    .trust-item-text p {
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.4;
+    }
+
+    /* ================================================================
+       RIGHT COL — Checkout Form
+    ================================================================ */
+    .checkout-form-col {
+      position: sticky;
+      top: 88px;
+    }
+
+    .checkout-form-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .form-card-header {
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--color-border-light);
+      background: linear-gradient(135deg, var(--royale) 0%, #001a6e 100%);
+    }
+
+    .form-card-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ivoire);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .form-card-subtitle {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .form-card-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Section labels ── */
+    .form-section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 12px;
+      margin-top: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .form-section-label:first-child {
+      margin-top: 0;
+    }
+
+    /* ── Date row ── */
+    .date-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Nights chip ── */
+    .nights-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--peach-light);
+      border: 1px solid rgba(255,192,156,0.35);
+      color: var(--royale);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .nights-chip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Price breakdown card ── */
+    .price-breakdown-card {
+      background: var(--color-bg-warm);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .price-breakdown-card.visible {
+      display: block;
+      animation: fadeUp 0.25s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      padding: 6px 0;
+      color: var(--color-text);
+    }
+
+    .breakdown-row.discount {
+      color: var(--color-success);
+    }
+
+    .breakdown-row.uplift {
+      color: var(--color-text-muted);
+      font-size: 0.78rem;
+    }
+
+    .breakdown-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 8px 0;
+    }
+
+    .breakdown-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--royale);
+      padding-top: 4px;
+    }
+
+    .breakdown-loading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: var(--color-text-muted);
+      justify-content: center;
+      padding: 8px 0;
+    }
+
+    /* ── Form fields ── */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--royale);
+      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    .form-group .optional {
+      font-weight: 400;
+      color: var(--color-text-muted);
+      font-size: 0.75rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--color-text);
+      background: var(--ivoire);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--royale);
+      box-shadow: 0 0 0 3px rgba(0,12,55,0.08);
+    }
+
+    .form-group input.date-input {
+      cursor: pointer;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(0,0,0,0.3);
+    }
+
+    /* ── Guests selector ── */
+    .guests-selector {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      background: var(--ivoire);
+    }
+
+    .guests-label {
+      font-size: 0.9rem;
+      color: var(--color-text);
+    }
+
+    .guests-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .guests-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-border);
+      background: var(--ivoire);
+      color: var(--royale);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color var(--transition), background var(--transition);
+      line-height: 1;
+      padding: 0;
+    }
+
+    .guests-btn:hover:not(:disabled) {
+      border-color: var(--royale);
+      background: var(--royale);
+      color: #fff;
+    }
+
+    .guests-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .guests-count {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--royale);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* ── Error ── */
+    .form-error-bar {
+      background: rgba(220,38,38,0.06);
+      border: 1px solid rgba(220,38,38,0.2);
+      border-radius: var(--radius-sm);
+      color: var(--color-error);
+      font-size: 0.84rem;
+      padding: 10px 14px;
+      display: none;
+      margin-bottom: 16px;
+    }
+
+    .form-error-bar.visible {
+      display: block;
+      animation: fadeUp 0.2s ease;
+    }
+
+    /* ── Submit button ── */
+    .pay-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--royale);
+      color: var(--ivoire);
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: background var(--transition), transform 0.12s ease, box-shadow var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pay-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.06) 100%);
+    }
+
+    .pay-btn:hover:not(:disabled) {
+      background: var(--royale-hover);
+      box-shadow: 0 8px 24px rgba(0,12,55,0.25);
+      transform: translateY(-1px);
+    }
+
+    .pay-btn:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .pay-btn:disabled {
+      background: #b0b8cc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .pay-btn .btn-amount {
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.88rem;
+    }
+
+    .secure-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    /* ── Loading overlay ── */
+    .page-loading {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .page-loading .spinner {
+      width: 36px;
+      height: 36px;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 2.5px solid rgba(0,12,55,0.12);
+      border-top-color: var(--royale);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinner-sm {
+      width: 16px;
+      height: 16px;
+      border-width: 2px;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 600px) {
+      .booking-page { padding: 24px 0 60px; }
+      .checkout-form-col { position: static; }
+      .form-card-body { padding: 20px; }
+      .date-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="Le NIDO by Bondd home">
+        <img src="/assets/brand/logo-dark.svg" alt="Le NIDO by Bondd" class="logo-img" width="100" height="48" />
+      </a>
+      <nav class="header-nav">
+        <a href="/">All Properties</a>
+        <a href="/#why-direct">Why Direct?</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <a
+        href="https://wa.me/2348000000000?text=Hi%2C%20I%27d%20like%20help%20with%20my%20booking%20at%20Le%20Nido"
+        class="btn btn-whatsapp btn-sm header-cta"
+        target="_blank"
+        rel="noopener"
+        id="header-whatsapp"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Need help?
+      </a>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="booking-page" id="booking-main">
+    <div class="container">
+
+      <!-- Loading state -->
+      <div class="page-loading" id="page-loading">
+        <div class="spinner"></div>
+        <p>Loading property details…</p>
+      </div>
+
+      <!-- Page content (hidden until loaded) -->
+      <div id="booking-content" style="display:none">
+
+        <!-- Page heading -->
+        <div class="booking-page-header">
+          <h1>Complete Your Booking</h1>
+          <p>You're one step away from your stay at Le NIDO by Bondd</p>
+        </div>
+
+        <!-- Progress indicator -->
+        <div class="booking-progress" aria-label="Booking steps">
+          <div class="progress-step active">
+            <span class="progress-num">1</span>
+            <span>Your Details</span>
+          </div>
+          <div class="progress-divider" aria-hidden="true"></div>
+          <div class="progress-step" id="step2">
+            <span class="progress-num">2</span>
+            <span>Review &amp; Pay</span>
+          </div>
+          <div class="progress-divider" aria-hidden="true"></div>
+          <div class="progress-step" id="step3">
+            <span class="progress-num">3</span>
+            <span>Confirmed</span>
+          </div>
+        </div>
+
+        <!-- Two-column layout -->
+        <div class="checkout-layout">
+
+          <!-- ── LEFT: Property summary ── -->
+          <div class="property-summary-col">
+
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back to property
+            </a>
+
+            <!-- Property card -->
+            <div class="prop-summary-card">
+              <div class="prop-summary-img-wrap">
+                <img id="prop-img" src="" alt="Property" fetchpriority="high" />
+                <span class="prop-summary-badge" id="prop-type-badge">Studio</span>
+              </div>
+              <div class="prop-summary-body">
+                <h2 class="prop-summary-name" id="prop-name">—</h2>
+                <p class="prop-summary-location" id="prop-location">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  —
+                </p>
+                <div class="prop-summary-specs">
+                  <div class="spec-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span id="spec-bedrooms">—</span>
+                  </div>
+                  <div class="spec-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    <span id="spec-bathrooms">—</span>
+                  </div>
+                  <div class="spec-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Up to <span id="spec-guests">—</span> guests
+                  </div>
+                </div>
+                <div class="prop-summary-pricing">
+                  <p class="pricing-from">Starting from</p>
+                  <p class="pricing-main" id="prop-price-night">—<span> / night</span></p>
+                  <p class="pricing-alt" id="prop-price-alt">—</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Amenities highlights -->
+            <div class="amenities-highlights" id="amenities-section">
+              <h3>What's included</h3>
+              <div class="amenity-grid" id="amenity-grid"></div>
+            </div>
+
+            <!-- Trust strip -->
+            <div class="checkout-trust">
+              <div class="trust-item">
+                <span class="trust-item-icon">💸</span>
+                <div class="trust-item-text">
+                  <strong>No hidden fees</strong>
+                  <p>What you see is exactly what you pay.</p>
+                </div>
+              </div>
+              <div class="trust-item">
+                <span class="trust-item-icon">🔒</span>
+                <div class="trust-item-text">
+                  <strong>Secured by Paystack</strong>
+                  <p>Cards, bank transfer &amp; USSD accepted.</p>
+                </div>
+              </div>
+              <div class="trust-item">
+                <span class="trust-item-icon">💬</span>
+                <div class="trust-item-text">
+                  <strong>Direct host contact</strong>
+                  <p>WhatsApp confirmation sent immediately.</p>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /property-summary-col -->
+
+          <!-- ── RIGHT: Checkout form ── -->
+          <div class="checkout-form-col">
+            <div class="checkout-form-card">
+
+              <div class="form-card-header">
+                <p class="form-card-title">Reserve Your Stay</p>
+                <p class="form-card-subtitle">Fill in your details and pay securely</p>
+              </div>
+
+              <div class="form-card-body">
+                <form id="checkout-form" novalidate>
+
+                  <!-- Section: Dates -->
+                  <p class="form-section-label">Select Dates</p>
+
+                  <div class="date-row">
+                    <div class="form-group">
+                      <label for="check-in">Check-in</label>
+                      <input type="text" id="check-in" name="checkIn" placeholder="Choose date" readonly class="date-input" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="check-out">Check-out</label>
+                      <input type="text" id="check-out" name="checkOut" placeholder="Choose date" readonly class="date-input" required />
+                    </div>
+                  </div>
+
+                  <!-- Nights chip -->
+                  <div class="nights-chip" id="nights-chip">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <span id="nights-chip-text">0 nights</span>
+                  </div>
+
+                  <!-- Price breakdown -->
+                  <div class="price-breakdown-card" id="price-breakdown-card">
+                    <div class="breakdown-loading" id="breakdown-loading">
+                      <div class="spinner spinner-sm"></div>
+                      Calculating…
+                    </div>
+                    <div id="breakdown-rows" style="display:none"></div>
+                  </div>
+
+                  <!-- Section: Guests -->
+                  <p class="form-section-label">Guests</p>
+
+                  <div class="form-group">
+                    <div class="guests-selector">
+                      <span class="guests-label">Number of guests</span>
+                      <div class="guests-controls">
+                        <button type="button" class="guests-btn" id="guests-minus" aria-label="Remove guest" disabled>−</button>
+                        <span class="guests-count" id="guests-count" aria-live="polite">1</span>
+                        <button type="button" class="guests-btn" id="guests-plus" aria-label="Add guest">+</button>
+                      </div>
+                    </div>
+                    <input type="hidden" id="guests-input" name="guests" value="1" />
+                  </div>
+
+                  <!-- Section: Your details -->
+                  <p class="form-section-label">Your Details</p>
+
+                  <div class="form-group">
+                    <label for="guest-name">Full Name</label>
+                    <input type="text" id="guest-name" name="guestName" placeholder="e.g. Amara Johnson" required autocomplete="name" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="guest-email">Email Address</label>
+                    <input type="email" id="guest-email" name="guestEmail" placeholder="your@email.com" required autocomplete="email" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="guest-phone">WhatsApp Number</label>
+                    <input type="tel" id="guest-phone" name="guestPhone" placeholder="+234 800 000 0000" required autocomplete="tel" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="special-requests">Special Requests <span class="optional">(optional)</span></label>
+                    <textarea id="special-requests" name="specialRequests" rows="3" placeholder="Early check-in, extra towels, airport pickup…"></textarea>
+                  </div>
+
+                  <!-- Error bar -->
+                  <div class="form-error-bar" id="form-error" role="alert"></div>
+
+                  <!-- Pay button -->
+                  <button type="submit" class="pay-btn" id="pay-btn" disabled>
+                    Select dates to continue
+                  </button>
+
+                  <p class="secure-note">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Secured by Paystack · Cards, Transfer &amp; USSD
+                  </p>
+
+                </form>
+              </div><!-- /form-card-body -->
+            </div><!-- /checkout-form-card -->
+          </div><!-- /checkout-form-col -->
+
+        </div><!-- /checkout-layout -->
+      </div><!-- /booking-content -->
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand-block">
+        <img src="/assets/brand/logo-white.svg" alt="Le NIDO by Bondd" class="footer-logo-img" width="100" height="48" />
+        <p class="footer-tagline">Premium short-stay apartments in Lekki, Lagos.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Properties</a>
+        <a href="/#why-direct">Why Direct?</a>
+        <a href="https://wa.me/2348000000000" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <p class="footer-copy">Lekki Phase 1, Lagos, Nigeria &mdash; &copy; <span id="footer-year"></span> Le NIDO by Bondd</p>
+    </div>
+  </footer>
+
+  <!-- Flatpickr -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- Paystack inline -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <!-- Checkout script -->
+  <script src="/js/checkout.js"></script>
+  <script src="/js/payment.js"></script>
+
+</body>
+</html>
