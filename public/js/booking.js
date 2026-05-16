@@ -249,6 +249,21 @@ function renderBreakdown(pricing) {
   breakdownContent.style.display = 'block';
 }
 
+function calcLocalPricing(property, checkIn, checkOut) {
+  const msPerDay = 86400000;
+  const nights   = Math.round((new Date(checkOut) - new Date(checkIn)) / msPerDay);
+  if (nights <= 0) return null;
+  const baseRate = property.pricing.night;
+  let   total    = nights * baseRate;
+  const discounts = [];
+  if (nights >= 7) {
+    const weeklyTotal = Math.floor(nights / 7) * property.pricing.week + (nights % 7) * baseRate;
+    const saving = total - weeklyTotal;
+    if (saving > 0) { discounts.push({ reason: 'Weekly rate', rate: '7+ nights', saving }); total = weeklyTotal; }
+  }
+  return { nights, baseRate, subtotal: nights * baseRate, discounts, upliftSummary: [], total };
+}
+
 async function fetchPricing() {
   const checkIn  = document.getElementById('check-in').value;
   const checkOut = document.getElementById('check-out').value;
@@ -260,25 +275,35 @@ async function fetchPricing() {
   payBtn.disabled    = true;
   payBtn.textContent = 'Calculating…';
 
-  try {
-    const res  = await fetch(`/api/bookings/pricing/${propertyId}?checkIn=${checkIn}&checkOut=${checkOut}`);
-    const json = await res.json();
+  let pricing = null;
 
-    if (!json.success) {
-      showError(json.error || 'Could not calculate price');
-      resetPriceBreakdown();
-      return;
-    }
+  // Try live API
+  if (!currentProperty?._offlineMode) {
+    try {
+      const res  = await fetch(`/api/bookings/pricing/${propertyId}?checkIn=${checkIn}&checkOut=${checkOut}`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success) pricing = json.data;
+      }
+    } catch { /* fall through */ }
+  }
 
-    currentPricing = json.data;
-    renderBreakdown(json.data);
-    payBtn.disabled    = false;
-    payBtn.textContent = `Proceed to Checkout — ${formatNGN(json.data.total)}`;
-    clearError();
-  } catch {
+  // Fallback — calculate locally
+  if (!pricing && currentProperty) {
+    pricing = calcLocalPricing(currentProperty, checkIn, checkOut);
+  }
+
+  if (!pricing) {
     showError('Could not calculate price. Please try again.');
     resetPriceBreakdown();
+    return;
   }
+
+  currentPricing = pricing;
+  renderBreakdown(pricing);
+  payBtn.disabled    = false;
+  payBtn.textContent = `Proceed to Checkout — ${formatNGN(pricing.total)}`;
+  clearError();
 }
 
 function debouncedFetchPricing() {
@@ -307,31 +332,52 @@ form.addEventListener('submit', e => {
 // ============================================================
 // Bootstrap
 // ============================================================
+async function loadFromContent(id) {
+  try {
+    const res  = await fetch('/content.json');
+    if (!res.ok) return null;
+    const data = await res.json();
+    const props = data.properties || [];
+    return id ? (props.find(p => p.id === id) || props[0]) : props[0];
+  } catch {
+    return null;
+  }
+}
+
 async function init() {
   if (!propertyId) {
     loadingOverlay.innerHTML = '<p style="color:#dc2626;text-align:center">No property specified. <a href="/" style="color:inherit;text-decoration:underline">View all properties →</a></p>';
     return;
   }
 
+  let property = null;
+
+  // 1️⃣ Try live API
   try {
     const res  = await fetch(`/api/bookings/properties/${propertyId}`);
-    const json = await res.json();
-
-    if (!json.success) {
-      loadingOverlay.innerHTML = `<p style="color:#dc2626;text-align:center">${json.error}. <a href="/" style="color:inherit;text-decoration:underline">View all properties →</a></p>`;
-      return;
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success) property = json.data;
     }
+  } catch { /* fall through */ }
 
-    currentProperty = json.data;
-    renderProperty(json.data);
-    await initDatePickers();
-
-    loadingOverlay.style.display  = 'none';
-    propertyContent.style.display = 'block';
-  } catch (err) {
-    loadingOverlay.innerHTML = '<p style="color:#dc2626;text-align:center">Failed to load property. Is the server running?</p>';
-    console.error('[booking.js]', err);
+  // 2️⃣ Fallback — load from content.json
+  if (!property) {
+    property = await loadFromContent(propertyId);
+    if (property) property._offlineMode = true;
   }
+
+  if (!property) {
+    loadingOverlay.innerHTML = '<p style="color:#dc2626;text-align:center">Could not load property. <a href="/" style="color:inherit;text-decoration:underline">View all properties →</a></p>';
+    return;
+  }
+
+  currentProperty = property;
+  renderProperty(property);
+  await initDatePickers();
+
+  loadingOverlay.style.display  = 'none';
+  propertyContent.style.display = 'block';
 }
 
 init();
