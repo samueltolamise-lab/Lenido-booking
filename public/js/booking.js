@@ -135,6 +135,8 @@ function renderProperty(p) {
   if (bathroomsEl) bathroomsEl.textContent = p.bathrooms;
   const guestsEl = document.getElementById('spec-guests');
   if (guestsEl) guestsEl.textContent = `Up to ${p.maxGuests}`;
+  const locationEl = document.getElementById('spec-location');
+  if (locationEl) locationEl.textContent = p.location || '—';
 
   // Pricing
   document.getElementById('prop-price-night').textContent = formatNGN(p.pricing.night);
