@@ -1,0 +1,27 @@
+{
+  "name": "lenido-booking",
+  "version": "1.0.0",
+  "description": "Direct booking system for Le Nido by Bondd STR brand",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.0.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "googleapis": "^140.0.0",
+    "node-cron": "^3.0.3",
+    "node-ical": "^0.19.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

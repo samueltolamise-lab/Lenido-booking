@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed — Le Nido by Bondd</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="/" style="text-decoration:none;color:inherit;">
+          <span class="logo-mark">Le Nido</span>
+          <span class="logo-sub">by Bondd</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="confirmation-page container">
+
+    <!-- Verifying state -->
+    <div id="verifying-state" class="state-card">
+      <div class="spinner"></div>
+      <p>Verifying your payment…</p>
+    </div>
+
+    <!-- Success state -->
+    <div id="success-state" class="state-card" style="display:none">
+      <div class="success-icon">✓</div>
+      <h1 class="confirm-title">Booking Confirmed!</h1>
+      <p class="confirm-subtitle">You're all set. Check your WhatsApp for details.</p>
+
+      <div class="confirm-card" id="confirm-details">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="confirm-actions">
+        <a href="/" class="btn btn-outline">Back to Properties</a>
+        <a
+          href="https://wa.me/2348000000000?text=Hi%2C%20I%20just%20completed%20my%20booking%20at%20Le%20Nido"
+          class="btn btn-whatsapp"
+          target="_blank"
+          rel="noopener"
+          id="whatsapp-link"
+        >
+          Message the Host
+        </a>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-state" class="state-card" style="display:none">
+      <div class="error-icon">✕</div>
+      <h1 class="confirm-title">Something went wrong</h1>
+      <p class="confirm-subtitle" id="error-message">We couldn't verify your payment. If you were charged, please contact us on WhatsApp with your reference number.</p>
+      <div class="confirm-actions">
+        <a href="/" class="btn btn-outline">Back to Properties</a>
+        <a
+          href="https://wa.me/2348000000000"
+          class="btn btn-whatsapp"
+          target="_blank"
+          rel="noopener"
+        >
+          Contact Support
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">Le Nido by Bondd</p>
+      <p class="footer-copy">Lekki, Lagos, Nigeria &mdash; &copy; <span id="footer-year"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('#footer-year').forEach(el => (el.textContent = new Date().getFullYear()));
+
+    function formatNGN(amount) {
+      return '₦' + Number(amount).toLocaleString('en-NG');
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-NG', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+      });
+    }
+
+    async function verify() {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref') || params.get('reference') || params.get('trxref');
+
+      if (!ref) {
+        showError('No payment reference found in the URL.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/payments/verify/${encodeURIComponent(ref)}`);
+        const json = await res.json();
+
+        if (!json.success) {
+          showError(json.error || 'Payment verification failed.');
+          return;
+        }
+
+        showSuccess(json.data);
+      } catch (err) {
+        showError('Unable to reach the server. Please contact us on WhatsApp with your reference: ' + ref);
+      }
+    }
+
+    function showSuccess(data) {
+      document.getElementById('verifying-state').style.display = 'none';
+
+      const details = document.getElementById('confirm-details');
+      details.innerHTML = `
+        <div class="confirm-row"><span>Booking ID</span><strong>${data.bookingId}</strong></div>
+        <div class="confirm-row"><span>Property</span><strong>${data.propertyName}</strong></div>
+        <div class="confirm-row"><span>Guest</span><strong>${data.guestName}</strong></div>
+        <div class="confirm-row"><span>Check-in</span><strong>${formatDate(data.checkIn)}</strong></div>
+        <div class="confirm-row"><span>Check-out</span><strong>${formatDate(data.checkOut)}</strong></div>
+        <div class="confirm-row"><span>Nights</span><strong>${data.nights}</strong></div>
+        <div class="confirm-row total-row"><span>Total Paid</span><strong>${formatNGN(data.total)}</strong></div>
+        <div class="confirm-row ref-row"><span>Paystack Ref</span><code>${data.reference}</code></div>
+      `;
+
+      document.getElementById('success-state').style.display = 'flex';
+    }
+
+    function showError(message) {
+      document.getElementById('verifying-state').style.display = 'none';
+      document.getElementById('error-message').textContent = message;
+      document.getElementById('error-state').style.display = 'flex';
+    }
+
+    verify();
+  </script>
+</body>
+</html>

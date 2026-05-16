@@ -1,0 +1,163 @@
+{
+  "_readme": "This is the content file for the Le Nido website. Edit values here to update property listings, amenities, reviews, and site text without touching any code. Ask Claude to apply changes to the live site after editing.",
+
+  "site": {
+    "name": "Le Nido by Bondd",
+    "tagline": "Feel at home, wherever you land.",
+    "description": "Curated serviced apartments in Lekki for business travellers, diaspora returnees, and Lagos explorers.",
+    "location": "Lekki Phase 1, Lagos, Nigeria",
+    "whatsappNumber": "2348000000000",
+    "whatsappGreeting": "Hi, I'd like to enquire about a stay at Le Nido",
+    "email": ""
+  },
+
+  "trustBar": [
+    { "value": "200+",    "label": "Stays completed" },
+    { "value": "4.9 ★",  "label": "Average guest rating" },
+    { "value": "0 fees",  "label": "Book direct, pay less" },
+    { "value": "Instant", "label": "Paystack confirmation" }
+  ],
+
+  "properties": [
+    {
+      "id": "lekki-01",
+      "name": "Le Nido Lekki 01",
+      "type": "Studio",
+      "location": "Lekki Phase 1, Lagos",
+      "tagline": "Your private retreat in the heart of Lekki",
+      "description": "A beautifully designed studio apartment in Lekki Phase 1. Fully air-conditioned, high-speed WiFi, Netflix-ready smart TV, and a fully equipped kitchenette. Perfect for solo travellers, business professionals, and couples looking for a quiet, stylish base in Lagos.",
+      "maxGuests": 2,
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "amenities": [
+        "High-Speed WiFi",
+        "Air Conditioning",
+        "Smart TV / Netflix",
+        "Fully Equipped Kitchenette",
+        "24/7 Security",
+        "Dedicated Parking",
+        "Backup Generator",
+        "Water Dispenser",
+        "Iron & Ironing Board",
+        "Premium Toiletries",
+        "Clean Linens & Towels",
+        "Workspace Desk"
+      ],
+      "pricing": {
+        "night": 85000,
+        "week": 530000,
+        "month": 1800000
+      },
+      "images": [
+        "/assets/properties/lekki-01/lekki-01-hero-01.jpg",
+        "/assets/properties/lekki-01/lekki-01-hero-02.jpg",
+        "/assets/properties/lekki-01/lekki-01-living-01.jpg"
+      ],
+      "imageFallbacks": [
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80",
+        "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1200&q=80",
+        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80"
+      ],
+      "icalUrl": ""
+    },
+    {
+      "id": "lekki-02",
+      "name": "Le Nido Lekki 02",
+      "type": "1 Bedroom",
+      "location": "Lekki Phase 1, Lagos",
+      "tagline": "Spacious comfort with a Lagos state of mind",
+      "description": "A premium 1-bedroom apartment with a separate living area in Lekki Phase 1. Ideal for business travellers, small families, or anyone who wants extra space and privacy. Features a dedicated bedroom with ensuite, open-plan living room, and a full kitchen.",
+      "maxGuests": 3,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "amenities": [
+        "High-Speed WiFi",
+        "Air Conditioning (All Rooms)",
+        "Smart TV / Netflix",
+        "Fully Equipped Kitchen",
+        "Dining Area",
+        "24/7 Security",
+        "Dedicated Parking",
+        "Backup Generator",
+        "Washing Machine",
+        "Water Dispenser",
+        "Iron & Ironing Board",
+        "Premium Toiletries",
+        "Clean Linens & Towels",
+        "Workspace Desk"
+      ],
+      "pricing": {
+        "night": 120000,
+        "week": 750000,
+        "month": 2500000
+      },
+      "images": [
+        "/assets/properties/lekki-02/lekki-02-hero-01.jpg",
+        "/assets/properties/lekki-02/lekki-02-hero-02.jpg",
+        "/assets/properties/lekki-02/lekki-02-bedroom-01.jpg"
+      ],
+      "imageFallbacks": [
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80"
+      ],
+      "icalUrl": ""
+    }
+  ],
+
+  "reviews": [
+    {
+      "id": "r-001",
+      "propertyId": "lekki-01",
+      "guestName": "Adaeze O.",
+      "guestOrigin": "Abuja",
+      "stayMonth": "Nov 2024",
+      "rating": 5,
+      "review": "Absolutely beautiful apartment. Spotless, well-equipped, and the host was incredibly responsive. Will definitely book again when I'm back in Lagos.",
+      "visible": true
+    },
+    {
+      "id": "r-002",
+      "propertyId": "lekki-02",
+      "guestName": "Kolade B.",
+      "guestOrigin": "UK Diaspora",
+      "stayMonth": "Jan 2025",
+      "rating": 5,
+      "review": "Came back to Lagos for the first time in years. Le Nido felt like a luxury hotel but with the warmth of home. The location in Lekki was perfect.",
+      "visible": true
+    },
+    {
+      "id": "r-003",
+      "propertyId": "lekki-01",
+      "guestName": "Timi A.",
+      "guestOrigin": "Lagos",
+      "stayMonth": "Mar 2025",
+      "rating": 5,
+      "review": "Booked direct and saved compared to Airbnb. The workspace desk and reliable WiFi made it perfect for my remote work week. Highly recommend.",
+      "visible": true
+    }
+  ],
+
+  "perks": [
+    {
+      "icon": "💸",
+      "title": "Best Price Guaranteed",
+      "description": "No platform service fees. The rate you see is exactly what you pay — nothing added at checkout."
+    },
+    {
+      "icon": "⚡",
+      "title": "Instant Confirmation",
+      "description": "Pay securely with Paystack and receive your booking confirmation in seconds, not hours."
+    },
+    {
+      "icon": "💬",
+      "title": "Direct WhatsApp Access",
+      "description": "Speak directly to the host, not a faceless support queue. Fast answers before and during your stay."
+    },
+    {
+      "icon": "🔒",
+      "title": "Secure Payments",
+      "description": "Protected by Paystack. Nigerian debit cards, USSD, bank transfers, and VISA accepted."
+    }
+  ]
+}

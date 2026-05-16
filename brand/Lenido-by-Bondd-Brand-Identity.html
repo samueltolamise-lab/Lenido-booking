@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le NIDO by Bondd — Brand Identity Guidelines</title>
+
+<!-- Syne — hero display typeface · Google Fonts (free, commercial) -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- DM Sans — body and functional type · Google Fonts (free, commercial) -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<!-- Fraunces — italic/emotional accent · Google Fonts (free, commercial) -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --noir:    #000000;
+  --ivoire:  #ffffff;
+  --peach:   #ffc09c;
+  --creme:   #ffffce;
+  --air:     #9cefea;
+  --royale:  #000c37;
+  --vin:     #6e0029;
+
+  /* Typography roles */
+  --f-display:  'Syne', system-ui, sans-serif;
+  --f-warm:     'Fraunces', Georgia, serif;
+  --f-body:     'DM Sans', system-ui, sans-serif;
+
+  --margin: 9%;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ivoire);
+  color: var(--noir);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════ */
+.wrap         { padding: 72px var(--margin); }
+.wrap--dark   { background: var(--royale); color: var(--ivoire); }
+.wrap--creme  { background: var(--creme); }
+.wrap--royale { background: var(--royale); color: var(--ivoire); }
+.wrap--peach  { background: var(--peach); }
+.wrap--air    { background: var(--air); }
+
+.two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 56px; align-items: start; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+
+/* ═══════════════════════════════════════
+   SYSTEM LABELS
+═══════════════════════════════════════ */
+.tag {
+  font-family: var(--f-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--peach);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.tag::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--peach);
+  flex-shrink: 0;
+}
+.tag--muted         { color: rgba(0,0,0,0.3); }
+.tag--muted::before { background: rgba(0,0,0,0.2); }
+.tag--light         { color: rgba(255,255,255,0.35); }
+.tag--light::before { background: rgba(255,255,255,0.2); }
+
+/* ═══════════════════════════════════════
+   TYPE UTILITIES
+═══════════════════════════════════════ */
+.display {
+  font-family: var(--f-display);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+.display--xl  { font-size: clamp(52px, 9vw, 130px); }
+.display--lg  { font-size: clamp(36px, 5.5vw, 80px); }
+.display--md  { font-size: clamp(24px, 3.5vw, 48px); }
+.display--sm  { font-size: clamp(18px, 2vw, 28px); }
+
+.warm {
+  font-family: var(--f-warm);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.warm--xl { font-size: clamp(36px, 5vw, 68px); }
+.warm--lg { font-size: clamp(24px, 3vw, 42px); }
+.warm--md { font-size: clamp(18px, 2vw, 28px); }
+.warm--sm { font-size: 16px; }
+
+.body-copy {
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.85;
+  max-width: 500px;
+}
+.body-copy--light { color: rgba(255,255,255,0.6); }
+.body-copy--muted { color: rgba(0,0,0,0.58); }
+
+.label {
+  font-family: var(--f-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.38);
+}
+.label--light { color: rgba(255,255,255,0.35); }
+.label--peach { color: var(--peach); }
+
+.cta {
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid var(--peach);
+  padding-bottom: 3px;
+  display: inline-block;
+}
+
+.peach { color: var(--peach); }
+.mt8  { margin-top:  8px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+.mt40 { margin-top: 40px; }
+.mt56 { margin-top: 56px; }
+.mb16 { margin-bottom: 16px; }
+
+/* ═══════════════════════════════════════
+   COVER
+═══════════════════════════════════════ */
+.cover {
+  background: var(--royale);
+  min-height: 100vh;
+  padding: 56px var(--margin);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.cover__glow1 {
+  position: absolute;
+  right: -12%;
+  top: -5%;
+  width: 52%;
+  aspect-ratio: 1;
+  background: var(--peach);
+  opacity: 0.07;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+.cover__glow2 {
+  position: absolute;
+  left: -5%;
+  bottom: -15%;
+  width: 35%;
+  aspect-ratio: 1;
+  background: var(--air);
+  opacity: 0.05;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+.cover__eyebrow {
+  font-family: var(--f-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+.cover__hero {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cover__le {
+  font-family: var(--f-warm);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(52px, 9vw, 130px);
+  color: rgba(255,192,156,0.22);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+}
+.cover__nido {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(68px, 14vw, 200px);
+  color: var(--ivoire);
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+}
+.cover__bondd {
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--peach);
+  margin-top: 24px;
+}
+.cover__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.cover__tagline {
+  font-family: var(--f-warm);
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255,255,255,0.28);
+  line-height: 1.6;
+  max-width: 360px;
+}
+.cover__doc-ref {
+  font-family: var(--f-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════
+   FONT INTRODUCTION
+═══════════════════════════════════════ */
+.font-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: rgba(0,0,0,0.07);
+  margin-top: 40px;
+}
+.font-card {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.font-card--dark  { background: var(--royale); }
+.font-card--creme { background: var(--creme); }
+.font-card--ivoire{ background: var(--ivoire); }
+.font-card__role {
+  font-family: var(--f-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+.font-card__name {
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.font-card__specimen {
+  line-height: 1.0;
+}
+.font-card__use {
+  font-family: var(--f-body);
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════
+   COLOR PALETTE
+═══════════════════════════════════════ */
+.swatch-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  border: 0.5px solid rgba(0,0,0,0.1);
+  margin-top: 40px;
+}
+.swatch {
+  aspect-ratio: 2/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 14px;
+}
+.swatch__n  { font-family: var(--f-display); font-weight: 600; font-size: 11px; letter-spacing: 0.02em; margin-bottom: 4px; }
+.swatch__h  { font-family: 'Courier New', monospace; font-size: 10px; opacity: 0.6; }
+.swatch__r  { font-family: var(--f-body); font-size: 9px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; margin-top: 5px; }
+.sw-noir    { background: #000; color: #fff; }
+.sw-ivoire  { background: #fff; color: #000; border-right: 0.5px solid rgba(0,0,0,0.08); }
+.sw-peach   { background: #ffc09c; color: #000; }
+.sw-creme   { background: #ffffce; color: #000; }
+.sw-air     { background: #9cefea; color: #000; }
+.sw-royale  { background: #000c37; color: #fff; }
+.sw-vin     { background: #6e0029; color: #fff; }
+
+/* Color combos */
+.combo-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+.combo {
+  aspect-ratio: 3/4;
+  padding: 9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+}
+.combo__tag  { font-family: var(--f-body); font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.45; margin-bottom: 10px; }
+.combo__head { font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 1.0; letter-spacing: -0.01em; }
+.combo__sub  { font-family: var(--f-body); font-size: 11px; line-height: 1.6; opacity: 0.6; margin-top: 8px; }
+.combo__cta  { font-family: var(--f-body); font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 16px; border-bottom: 1.5px solid var(--peach); padding-bottom: 2px; display: inline-block; }
+
+/* ═══════════════════════════════════════
+   TYPE SCALE TABLE
+═══════════════════════════════════════ */
+.scale-row {
+  display: grid;
+  grid-template-columns: 120px 200px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  align-items: center;
+}
+.scale-row:last-child { border-bottom: none; }
+.scale-role { font-family: var(--f-body); font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+.scale-spec { font-family: 'Courier New', monospace; font-size: 10px; color: rgba(255,255,255,0.25); line-height: 1.7; }
+
+/* ═══════════════════════════════════════
+   LAYOUT — SHAPES & POSTS
+═══════════════════════════════════════ */
+/* Social posts grid */
+.posts-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-top: 40px;
+}
+.post {
+  aspect-ratio: 4/5;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 9%;
+}
+.post__handle { font-family: var(--f-body); font-size: 7px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; }
+.post__head   { font-family: var(--f-display); font-weight: 700; line-height: 0.95; letter-spacing: -0.015em; }
+.post__italic { font-family: var(--f-warm); font-style: italic; line-height: 1.15; }
+.post__body   { font-family: var(--f-body); font-size: 10px; line-height: 1.6; }
+.post__cta    { font-family: var(--f-body); font-size: 7px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; }
+.post__hr     { height: 1.5px; background: var(--peach); width: 100%; }
+
+/* Squircle shapes */
+.sq {
+  border-radius: 30% 30% 30% 30% / 30% 30% 30% 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pill {
+  border-radius: 9999px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Shape showcase */
+.shape-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+.shape-box {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shape-note { font-family: var(--f-body); font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.35); text-align: center; margin-top: 8px; line-height: 1.5; }
+
+/* Margin compare */
+.margin-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.margin-box {
+  aspect-ratio: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.margin-pct {
+  position: absolute;
+  font-family: var(--f-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════
+   TONE OF VOICE
+═══════════════════════════════════════ */
+.tov-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: rgba(0,0,0,0.06);
+  margin-top: 24px;
+}
+.tov {
+  padding: 32px 36px;
+  background: var(--ivoire);
+}
+.tov--dark   { background: var(--royale); }
+.tov--creme  { background: var(--creme); }
+.tov--royale { background: var(--royale); }
+.tov__verdict {
+  font-family: var(--f-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.tov__verdict--y { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.55); }
+.tov__verdict--n { background: rgba(200,0,0,0.07); color: rgba(180,0,0,0.6); text-decoration: line-through; }
+.tov__verdict--yl{ background: rgba(255,192,156,0.15); color: var(--peach); }
+.tov__verdict--nl{ background: rgba(200,0,0,0.1); color: rgba(255,100,100,0.7); text-decoration: line-through; }
+.tov__copy { font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 1.05; letter-spacing: -0.01em; }
+.tov__note { font-family: var(--f-body); font-size: 12px; line-height: 1.75; margin-top: 12px; }
+
+/* ═══════════════════════════════════════
+   BRAND RELATIONSHIP TABLE
+═══════════════════════════════════════ */
+.brand-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: rgba(0,0,0,0.06);
+  margin-top: 48px;
+}
+.brand-col {
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.brand-col--p { background: var(--royale); color: var(--ivoire); }
+.brand-col--s { background: #001050;   color: var(--ivoire); }
+.brand-col__eyebrow {
+  font-family: var(--f-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+.brand-col__name {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.brand-col__item {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.05);
+  font-family: var(--f-body);
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.65);
+}
+.brand-col__item::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.brand-col--p .brand-col__item::before { background: var(--air); }
+.brand-col--s .brand-col__item::before { background: var(--peach); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     COVER
+══════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover__glow1"></div>
+  <div class="cover__glow2"></div>
+
+  <div class="cover__eyebrow">Short-Term Rental · Brand Identity</div>
+
+  <div class="cover__hero">
+    <span class="cover__le">Le</span>
+    <span class="cover__nido">NIDO</span>
+    <span class="cover__bondd">by bondd</span>
+  </div>
+
+  <div class="cover__foot">
+    <p class="cover__tagline">
+      "Luxury but affordable.<br>Classy but accessible."<br>
+      For the Lagos professional. For the diaspora coming home.
+    </p>
+    <span class="cover__doc-ref">Color · Layout · Typography — 2025</span>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     BRAND POSITIONING
+══════════════════════════════════════ -->
+<section class="wrap">
+  <div class="tag">00 — Positioning</div>
+  <div class="two-col">
+    <div>
+      <h2 class="display display--lg" style="margin-bottom:24px;">The stay<br>Lagos deserves.</h2>
+      <p class="body-copy body-copy--muted">
+        Le NIDO by Bondd is the short-term rental expression of Bondd Homes. It fills the gap between overpriced and disappointing — the premium stay that doesn't require premium sacrifice. Every space is designed, managed, and priced for the 20–40 Lagos professional who knows good design when they see it and won't overpay for a mediocre experience.
+      </p>
+      <p class="body-copy body-copy--muted mt16">
+        A significant portion of Lenido guests are diaspora Nigerians — people who've lived with international standards and want that same quality when they come home. The brand must speak to both without condescending to either.
+      </p>
+
+      <div style="margin-top:40px; padding:28px 32px; background:var(--creme); border-left:3px solid var(--peach);">
+        <div class="label mb16">The brand lives in the tension between</div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center;">
+            <span class="display display--sm">Luxury</span>
+            <span class="warm warm--sm" style="color:rgba(0,0,0,0.4); font-size:14px;">but</span>
+            <span class="display display--sm">Affordable</span>
+          </div>
+          <div style="height:0.5px; background:rgba(0,0,0,0.1);"></div>
+          <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center;">
+            <span class="display display--sm">Classy</span>
+            <span class="warm warm--sm" style="color:rgba(0,0,0,0.4); font-size:14px;">but</span>
+            <span class="display display--sm">Accessible</span>
+          </div>
+          <div style="height:0.5px; background:rgba(0,0,0,0.1);"></div>
+          <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center;">
+            <span class="display display--sm">Premium</span>
+            <span class="warm warm--sm" style="color:rgba(0,0,0,0.4); font-size:14px;">not</span>
+            <span class="display display--sm">Exclusive</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="background:var(--royale); padding:40px; display:flex; flex-direction:column; gap:20px;">
+        <div class="label--light mb16">The guest</div>
+        <div style="padding:18px 20px; background:rgba(255,192,156,0.09); border-left:2px solid var(--peach);">
+          <div class="warm warm--sm" style="color:var(--peach); font-size:14px; margin-bottom:8px;">Lagos Professional</div>
+          <p class="body-copy body-copy--light" style="font-size:12.5px;">20–40. Has taste, has a budget. Books based on how the photos feel. Wants design-forward, not just "clean." Won't scroll past a bad thumbnail.</p>
+        </div>
+        <div style="padding:18px 20px; background:rgba(156,239,234,0.07); border-left:2px solid var(--air);">
+          <div class="warm warm--sm" style="color:var(--air); font-size:14px; margin-bottom:8px;">Diaspora Nigerian</div>
+          <p class="body-copy body-copy--light" style="font-size:12.5px;">Coming home. Has stayed in London, Houston, Toronto. Wants Lagos to match. Lenido is proof that it can. Won't settle for "fine for Nigeria."</p>
+        </div>
+        <div style="height:0.5px; background:rgba(255,255,255,0.1);"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="text-align:center; padding:16px;">
+            <div class="display display--sm" style="color:var(--ivoire); font-size:28px;">20–40</div>
+            <div class="label--light mt8">Primary age range</div>
+          </div>
+          <div style="text-align:center; padding:16px; border-left:0.5px solid rgba(255,255,255,0.1);">
+            <div class="display display--sm" style="color:var(--peach); font-size:28px;">Social</div>
+            <div class="label--light mt8">Primary booking channel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     TYPOGRAPHY — the full section
+══════════════════════════════════════ -->
+<section class="wrap wrap--dark">
+  <div class="tag tag--light">01 — Typography</div>
+
+  <div class="two-col">
+    <div>
+      <h2 class="display display--lg" style="color:var(--ivoire); margin-bottom:24px;">Three fonts.<br>One voice.</h2>
+      <p class="body-copy body-copy--light">
+        The type system is built around three typefaces that fit how Lenido communicates — across Instagram, website, signage, and print. All three are free, commercially licensed via Google Fonts.
+      </p>
+      <p class="body-copy body-copy--light mt16">
+        The selection was driven by what resonates with design-literate Lagos and diaspora audiences — fonts with global credibility and a personality that doesn't read as generic corporate. Each one has a distinct voice. Together, they cover every register the brand lives in.
+      </p>
+    </div>
+    <div>
+      <!-- Type trio preview -->
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="padding:24px 28px; background:rgba(255,255,255,0.04); border-left:2px solid var(--peach);">
+          <div class="label--peach mb16">Display — Syne</div>
+          <div style="font-family:'Syne',system-ui; font-weight:700; font-size:36px; color:var(--ivoire); line-height:0.9; letter-spacing:-0.02em;">Stay like you<br>mean it.</div>
+          <div style="font-family:var(--f-body); font-size:11px; color:rgba(255,255,255,0.35); margin-top:12px; line-height:1.6;">Geometric, bold, design-forward. Used by premium brands globally. Headlines, social posts, and hero statements.</div>
+        </div>
+        <div style="padding:24px 28px; background:rgba(255,255,255,0.04); border-left:2px solid var(--air);">
+          <div class="label--light mb16" style="color:var(--air);">Accent — Fraunces Italic</div>
+          <div style="font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:28px; color:rgba(255,255,255,0.75); line-height:1.1; letter-spacing:-0.01em;">The kind of stay you deserve.</div>
+          <div style="font-family:var(--f-body); font-size:11px; color:rgba(255,255,255,0.35); margin-top:12px; line-height:1.6;">Optical serif with warmth and a gentle quirk. The typographic equivalent of the "Le" script — used for emotional copy, testimonials, and lifestyle moments.</div>
+        </div>
+        <div style="padding:24px 28px; background:rgba(255,255,255,0.04); border-left:2px solid rgba(255,255,255,0.15);">
+          <div class="label--light mb16">Functional — DM Sans</div>
+          <div style="font-family:'DM Sans',system-ui; font-weight:500; font-size:15px; color:rgba(255,255,255,0.6); line-height:1.7;">3 Bedroom · Ikoyi · Available Dec 15 · ₦120,000 per night · Link in bio to book this space.</div>
+          <div style="font-family:var(--f-body); font-size:11px; color:rgba(255,255,255,0.35); margin-top:12px; line-height:1.6;">Clean humanist grotesque. Every label, caption, body paragraph, CTA, and meta detail lives here.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Font cards — the proper specimens -->
+  <div class="font-intro">
+    <!-- Syne -->
+    <div class="font-card font-card--dark">
+      <div>
+        <div class="font-card__role">01 — Headlines & Display</div>
+        <div class="font-card__name" style="color:var(--ivoire);">Syne</div>
+        <div style="font-family:var(--f-body); font-size:10px; color:rgba(255,255,255,0.3); margin-top:4px;">by Syne Project · Google Fonts</div>
+      </div>
+
+      <div>
+        <div class="font-card__specimen" style="font-family:'Syne'; font-weight:700; font-size:56px; color:var(--ivoire); letter-spacing:-0.02em; line-height:0.88;">Aa<br>Bb</div>
+      </div>
+
+      <div style="height:0.5px; background:rgba(255,255,255,0.1);"></div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'Syne'; font-weight:700; font-size:22px; color:var(--ivoire); letter-spacing:-0.02em; line-height:1.0;">Book your vibe.</div>
+        <div style="font-family:'Syne'; font-weight:700; font-size:22px; color:var(--peach); letter-spacing:-0.02em; line-height:1.0;">Wake up here.</div>
+        <div style="font-family:'Syne'; font-weight:700; font-size:22px; color:var(--air); letter-spacing:-0.02em; line-height:1.0;">Your Lagos base.</div>
+        <div style="font-family:'Syne'; font-weight:500; font-size:16px; color:rgba(255,255,255,0.4); letter-spacing:-0.01em; line-height:1.2;">ABCDEFGHIJKLM<br>NOPQRSTUVWXYZ<br>abcdefghijklm<br>nopqrstuvwxyz<br>0123456789 ₦</div>
+      </div>
+
+      <div>
+        <div style="font-family:var(--f-body); font-size:11px; color:rgba(255,255,255,0.4); line-height:1.7;" class="font-card__use">Geometric variable-weight sans with a strong architectural personality. The ultra-bold cuts command attention without aggression. Distinctive enough to own, legible enough to use at any scale. The backbone of every Lenido headline.</div>
+      </div>
+    </div>
+
+    <!-- Fraunces -->
+    <div class="font-card font-card--creme">
+      <div>
+        <div class="font-card__role">02 — Accent & Emotional Copy</div>
+        <div class="font-card__name">Fraunces Italic</div>
+        <div style="font-family:var(--f-body); font-size:10px; color:rgba(0,0,0,0.35); margin-top:4px;">by Undercase Type · Google Fonts</div>
+      </div>
+
+      <div>
+        <div class="font-card__specimen" style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:56px; color:var(--noir); line-height:0.88; letter-spacing:-0.01em;">Aa<br>Bb</div>
+      </div>
+
+      <div style="height:0.5px; background:rgba(0,0,0,0.12);"></div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:20px; color:var(--noir); line-height:1.1; letter-spacing:-0.01em;">"This is the one you<br>tell people about."</div>
+        <div style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:20px; color:var(--vin); line-height:1.1; letter-spacing:-0.01em;">A morning worth<br>waking up for.</div>
+        <div style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:14px; color:rgba(0,0,0,0.45); letter-spacing:-0.01em; margin-top:6px; line-height:1.5;">AaBbCcDdEeFfGgHhIi<br>JjKkLlMmNnOoPpQqRr<br>SsTtUuVvWwXxYyZz</div>
+      </div>
+
+      <div>
+        <div style="font-family:var(--f-body); font-size:11px; color:rgba(0,0,0,0.5); line-height:1.7;" class="font-card__use">An optical serif designed for warmth at every scale. The italic creates the script-adjacent energy of the "Le" in the logo — used for testimonials, lifestyle moments, and emotional copy. Never used for functional text.</div>
+      </div>
+    </div>
+
+    <!-- DM Sans -->
+    <div class="font-card font-card--ivoire">
+      <div>
+        <div class="font-card__role">03 — Body & Functional</div>
+        <div class="font-card__name">DM Sans</div>
+        <div style="font-family:var(--f-body); font-size:10px; color:rgba(0,0,0,0.35); margin-top:4px;">by Colophon Foundry · Google Fonts</div>
+      </div>
+
+      <div>
+        <div class="font-card__specimen" style="font-family:'DM Sans'; font-weight:600; font-size:56px; color:var(--noir); line-height:0.88; letter-spacing:-0.02em;">Aa<br>Bb</div>
+      </div>
+
+      <div style="height:0.5px; background:rgba(0,0,0,0.1);"></div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'DM Sans'; font-weight:700; font-size:14px; color:var(--noir); letter-spacing:0.02em; text-transform:uppercase; line-height:1.4;">3 BED · IKOYI · ₦120K/NIGHT</div>
+        <div style="font-family:'DM Sans'; font-weight:400; font-size:13px; color:rgba(0,0,0,0.65); line-height:1.8;">Stocked, styled, and managed to Bondd standard. You show up. We handle everything else.</div>
+        <div style="font-family:'DM Sans'; font-weight:600; font-size:10px; color:var(--noir); letter-spacing:0.18em; text-transform:uppercase; border-bottom:1.5px solid var(--peach); padding-bottom:2px; display:inline-block; margin-top:4px;">Check availability →</div>
+        <div style="font-family:'DM Sans'; font-weight:400; font-size:13px; color:rgba(0,0,0,0.4); margin-top:4px; line-height:1.5;">AaBbCcDdEeFfGg<br>HhIiJjKkLlMmNn<br>0123456789 ₦£$</div>
+      </div>
+
+      <div>
+        <div style="font-family:var(--f-body); font-size:11px; color:rgba(0,0,0,0.5); line-height:1.7;" class="font-card__use">Humanist grotesque by Colophon Foundry — clean without being cold, open without being casual. An optical axis makes it sharper at small sizes and more editorial at large ones. Every label, caption, body paragraph, CTA, and meta detail lives here.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- TYPE SCALE -->
+<section class="wrap wrap--royale">
+  <div class="tag tag--light">01.1 — Type Scale</div>
+  <h3 class="display display--md" style="color:var(--ivoire); margin-bottom:40px;">Full hierarchy in use</h3>
+
+  <div style="border:0.5px solid rgba(255,255,255,0.08);">
+    <div style="padding:16px 28px; border-bottom:0.5px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:120px 200px 1fr; gap:24px;">
+      <div class="label--light">Role</div>
+      <div class="label--light">Spec</div>
+      <div class="label--light">Live example</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px;">
+      <div class="scale-role">Hero Display</div>
+      <div class="scale-spec">Syne 700<br>64–100pt / –2% track<br>Line-height: 0.92</div>
+      <div style="font-family:'Syne'; font-weight:700; font-size:clamp(36px,6vw,88px); color:var(--ivoire); letter-spacing:-0.02em; line-height:0.92;">Your Lagos base.</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px; border-top:0.5px solid rgba(255,255,255,0.06);">
+      <div class="scale-role">Emotional / Italic</div>
+      <div class="scale-spec">Fraunces 400 Italic<br>36–56pt / –1% track<br>Line-height: 1.1</div>
+      <div style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:clamp(24px,4vw,52px); color:var(--peach); line-height:1.1; letter-spacing:-0.01em;">The kind of stay you deserve.</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px; border-top:0.5px solid rgba(255,255,255,0.06);">
+      <div class="scale-role">Section Headline</div>
+      <div class="scale-spec">Syne 600<br>28–44pt / –1.5% track<br>Line-height: 1.0</div>
+      <div style="font-family:'Syne'; font-weight:600; font-size:clamp(22px,3vw,38px); color:var(--ivoire); letter-spacing:-0.015em; line-height:1.0;">Designed for how you actually live.</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px; border-top:0.5px solid rgba(255,255,255,0.06);">
+      <div class="scale-role">Subheading</div>
+      <div class="scale-spec">DM Sans 600<br>18–22pt / 0% track<br>Line-height: 1.25</div>
+      <div style="font-family:'DM Sans'; font-weight:600; font-size:clamp(16px,2vw,22px); color:var(--ivoire); line-height:1.25;">Every space is stocked, styled, and yours for the duration.</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px; border-top:0.5px solid rgba(255,255,255,0.06);">
+      <div class="scale-role">Body Copy</div>
+      <div class="scale-spec">DM Sans 400<br>13–15pt / 0% track<br>Line-height: 1.85</div>
+      <div style="font-family:'DM Sans'; font-weight:400; font-size:14px; color:rgba(255,255,255,0.6); line-height:1.85; max-width:520px;">From the kitchen to the quality of light through the windows — Lenido properties are managed by the Bondd Homes team so you can show up and simply be. No chasing hosts, no surprises, no compromises.</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px; border-top:0.5px solid rgba(255,255,255,0.06);">
+      <div class="scale-role">Caption / Meta</div>
+      <div class="scale-spec">DM Sans 500<br>9–11pt / +20% track<br>All caps</div>
+      <div style="font-family:'DM Sans'; font-weight:500; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Ikoyi · 3 Bed · 2 Bath · North Aspect · ₦120,000/night · Available Dec 15</div>
+    </div>
+
+    <div class="scale-row" style="padding: 28px; border-top:0.5px solid rgba(255,255,255,0.06);">
+      <div class="scale-role">CTA</div>
+      <div class="scale-spec">DM Sans 600<br>10–12pt / +15% track<br>Peach underline</div>
+      <div style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+        <span style="font-family:'DM Sans'; font-weight:600; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--ivoire); border-bottom:1.5px solid var(--peach); padding-bottom:3px;">Book this space</span>
+        <span style="font-family:'DM Sans'; font-weight:600; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach); border-bottom:1.5px solid var(--peach); padding-bottom:3px;">Check availability</span>
+        <span style="font-family:'DM Sans'; font-weight:600; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); border-bottom:1.5px solid rgba(255,192,156,0.4); padding-bottom:3px;">See all properties</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     01.2 — BODY COPY CONTRAST
+══════════════════════════════════════ -->
+<section class="wrap">
+  <div class="tag">01.2 — Body Copy in Context</div>
+  <h3 class="display display--md" style="margin-bottom:12px;">When the headline lands,<br>the paragraph delivers.</h3>
+  <p class="body-copy body-copy--muted" style="margin-bottom:48px; max-width:560px;">DM Sans is the workhorse. Clean, humanist, warm at every weight. The contrast between Syne's geometric confidence and DM Sans's open, approachable forms is what makes Lenido copy feel premium without feeling stiff.</p>
+
+  <!-- Two-column contrast layouts -->
+  <div class="two-col" style="margin-bottom:40px;">
+
+    <!-- Syne + DM Sans — dark background -->
+    <div style="background:var(--royale); padding:40px 36px; display:flex; flex-direction:column; gap:20px;">
+      <div style="font-family:'Syne',system-ui; font-weight:700; font-size:clamp(22px,3vw,32px); color:var(--ivoire); letter-spacing:-0.02em; line-height:0.95;">Designed down<br>to the last towel.</div>
+      <div style="width:32px; height:1.5px; background:var(--peach);"></div>
+      <p style="font-family:'DM Sans',system-ui; font-size:14px; font-weight:400; line-height:1.85; color:rgba(255,255,255,0.65); max-width:380px;">Every Lenido property is styled and stocked by the Bondd Homes team before you arrive. Quality linen, working kitchen, fast WiFi — and a space that looks exactly like the photos. No surprises. Just show up.</p>
+      <div style="font-family:'DM Sans',system-ui; font-size:11px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach); border-bottom:1.5px solid var(--peach); padding-bottom:3px; display:inline-block;">Check availability →</div>
+      <div style="margin-top:8px; padding-top:20px; border-top:0.5px solid rgba(255,255,255,0.08);">
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.28);">Syne 700 headline · DM Sans 400 body · DM Sans 600 CTA</div>
+      </div>
+    </div>
+
+    <!-- Fraunces editorial + DM Sans — crème background -->
+    <div style="background:var(--creme); padding:40px 36px; display:flex; flex-direction:column; gap:20px;">
+      <div style="font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:clamp(20px,2.5vw,28px); color:var(--noir); letter-spacing:-0.01em; line-height:1.15;">"Came back for the<br>third time.<br>Enough said."</div>
+      <div style="width:32px; height:1.5px; background:rgba(0,0,0,0.25);"></div>
+      <p style="font-family:'DM Sans',system-ui; font-size:14px; font-weight:400; line-height:1.85; color:rgba(0,0,0,0.62); max-width:380px;">Our guests are Bondd's best proof — Lagos professionals and diaspora visitors who know exactly what good looks like, and came back anyway. We don't add stars to our listings. The spaces do the talking.</p>
+      <div style="display:flex; align-items:center; gap:12px; margin-top:4px;">
+        <div style="width:36px; height:36px; background:var(--peach); border-radius:50%; flex-shrink:0;"></div>
+        <div>
+          <div style="font-family:'DM Sans',system-ui; font-size:12px; font-weight:600; color:var(--noir);">Aisha O. — Lagos</div>
+          <div style="font-family:'DM Sans',system-ui; font-size:10px; font-weight:400; color:rgba(0,0,0,0.45); letter-spacing:0.04em;">Stayed · Lekki 2BR · Dec 2024</div>
+        </div>
+      </div>
+      <div style="margin-top:8px; padding-top:20px; border-top:0.5px solid rgba(0,0,0,0.1);">
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:rgba(0,0,0,0.3);">Fraunces 400 italic · DM Sans 400 body · DM Sans 600 meta</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DM Sans weight scale -->
+  <div style="border:0.5px solid rgba(0,0,0,0.1);">
+    <div style="padding:16px 28px; background:rgba(0,0,0,0.03); font-family:'DM Sans',system-ui; font-size:9px; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:rgba(0,0,0,0.4); border-bottom:0.5px solid rgba(0,0,0,0.08);">DM Sans — Weight Hierarchy</div>
+
+    <div style="padding:22px 28px; border-bottom:0.5px solid rgba(0,0,0,0.07); display:grid; grid-template-columns:100px 1fr; gap:20px; align-items:start;">
+      <div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,0,0,0.35); margin-bottom:4px;">Regular 400</div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; color:rgba(0,0,0,0.28); line-height:1.5;">Long-form body. Website copy. Listing descriptions.</div>
+      </div>
+      <p style="font-family:'DM Sans',system-ui; font-size:15px; font-weight:400; line-height:1.85; color:var(--noir); max-width:580px;">From the kitchen to the quality of light through the windows — Lenido properties are managed by the Bondd Homes team so you can show up and simply be. No chasing hosts, no surprises, no compromises. Every detail is handled before you arrive.</p>
+    </div>
+
+    <div style="padding:22px 28px; border-bottom:0.5px solid rgba(0,0,0,0.07); display:grid; grid-template-columns:100px 1fr; gap:20px; align-items:start;">
+      <div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,0,0,0.35); margin-bottom:4px;">Medium 500</div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; color:rgba(0,0,0,0.28); line-height:1.5;">Subheadings within body. Pull quotes. Supporting copy.</div>
+      </div>
+      <p style="font-family:'DM Sans',system-ui; font-size:15px; font-weight:500; line-height:1.85; color:var(--noir); max-width:580px;">Three properties. Each one managed, styled, and ready. Ikoyi, Victoria Island, and Lekki — all available for short-term rental with the same Bondd standard you trust.</p>
+    </div>
+
+    <div style="padding:22px 28px; border-bottom:0.5px solid rgba(0,0,0,0.07); display:grid; grid-template-columns:100px 1fr; gap:20px; align-items:start;">
+      <div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,0,0,0.35); margin-bottom:4px;">Semi-Bold 600</div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; color:rgba(0,0,0,0.28); line-height:1.5;">CTAs. UI labels. Intro/standfirst. Section subheads.</div>
+      </div>
+      <p style="font-family:'DM Sans',system-ui; font-size:15px; font-weight:600; line-height:1.85; color:var(--noir); max-width:580px;">Every space is stocked, styled, and yours for the duration. Link in bio to see what's available this week.</p>
+    </div>
+
+    <div style="padding:22px 28px; display:grid; grid-template-columns:100px 1fr; gap:20px; align-items:start;">
+      <div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,0,0,0.35); margin-bottom:4px;">Bold 700</div>
+        <div style="font-family:'DM Sans',system-ui; font-size:9px; color:rgba(0,0,0,0.28); line-height:1.5;">Property specs. Tracking-heavy utility labels only.</div>
+      </div>
+      <div style="font-family:'DM Sans',system-ui; font-size:10px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--noir); line-height:2.0;">3 BED · IKOYI · AVAILABLE NOV 1 · ₦120,000/NIGHT · 2 BATH · POOL ACCESS · BONDD MANAGED</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     02 — COLOR
+══════════════════════════════════════ -->
+<section class="wrap">
+  <div class="tag">02 — Color</div>
+  <div class="two-col">
+    <div>
+      <h2 class="display display--lg" style="margin-bottom:24px;">Warm.<br>Fresh.<br>Grounded.</h2>
+      <p class="body-copy body-copy--muted">
+        The palette is drawn entirely from the Bondd Homes family. Three Bondd colors are excluded — Neon Orange, Vibrant Blue, Outer Green — because they carry the parent brand's high-energy development identity. The remaining seven form Lenido's complete world.
+      </p>
+      <p class="body-copy body-copy--muted mt16">
+        <strong>Blue Royale</strong> is the dark foundation — Bondd's distinctive deep navy, used for all dominant backgrounds and compositions. Unlike plain black, Royale is uniquely Bondd — it creates the visual connection to the parent brand that makes Lenido unmistakably part of the family. <strong>Ambient Peach</strong> is the emotional signature, and <strong>Blush Blue</strong> brings freshness — morning light, clean spaces, pool energy. Black is reserved for body text and fine details only.
+      </p>
+    </div>
+    <div>
+      <div class="label mb16">Color ratio — how much of each to use</div>
+      <div style="height:16px; border-radius:2px; overflow:hidden; display:flex; margin-bottom:12px;">
+        <div style="flex:3; background:var(--royale);"></div>
+        <div style="flex:0.5; background:rgba(0,0,0,0);"></div>
+        <div style="flex:2; background:var(--ivoire); border:0.5px solid rgba(0,0,0,0.1);"></div>
+        <div style="flex:0.5; background:rgba(0,0,0,0);"></div>
+        <div style="flex:2; background:var(--creme);"></div>
+        <div style="flex:0.5; background:rgba(0,0,0,0);"></div>
+        <div style="flex:1.5; background:var(--peach);"></div>
+        <div style="flex:0.5; background:rgba(0,0,0,0);"></div>
+        <div style="flex:0.8; background:var(--air);"></div>
+        <div style="flex:0.5; background:rgba(0,0,0,0);"></div>
+        <div style="flex:0.5; background:var(--noir);"></div>
+      </div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <span class="label">■ Blue Royale 30%</span>
+        <span class="label">■ White 20%</span>
+        <span class="label">■ Cool Beige 20%</span>
+        <span class="label">■ Ambient Peach 15%</span>
+        <span class="label">■ Blush Blue 8%</span>
+        <span class="label">■ Black 5%</span>
+        <span class="label">■ Burgundy 2%</span>
+      </div>
+
+      <!-- Forbidden -->
+      <div style="margin-top:32px; padding:28px; background:rgba(0,0,0,0.04); border:0.5px solid rgba(0,0,0,0.08);">
+        <div class="label mb16">Not available to Lenido</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+          <div style="text-align:center;">
+            <div style="width:56px; height:56px; background:#ff5900; border-radius:4px; position:relative; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(255,255,255,0.55) 5px, rgba(255,255,255,0.55) 7px);"></div>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:16px; color:white; font-weight:700; z-index:2;">✕</div>
+            </div>
+            <div class="label mt8" style="font-size:8px;">Neon Orange</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:56px; height:56px; background:#00b5ff; border-radius:4px; position:relative; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(255,255,255,0.55) 5px, rgba(255,255,255,0.55) 7px);"></div>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:16px; color:white; font-weight:700; z-index:2;">✕</div>
+            </div>
+            <div class="label mt8" style="font-size:8px;">Vibrant Blue</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:56px; height:56px; background:#00c500; border-radius:4px; position:relative; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(255,255,255,0.55) 5px, rgba(255,255,255,0.55) 7px);"></div>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:16px; color:white; font-weight:700; z-index:2;">✕</div>
+            </div>
+            <div class="label mt8" style="font-size:8px;">Outer Green</div>
+          </div>
+        </div>
+        <p style="font-family:var(--f-body); font-size:12px; line-height:1.7; color:rgba(0,0,0,0.5);">These three belong to Bondd Homes' bold development identity. They carry the wrong energy for a hospitality brand — too energetic, too utilitarian. Their presence would immediately read as parent brand, not Lenido.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SWATCHES -->
+  <div class="swatch-row">
+    <div class="swatch sw-royale" style="order:-1;"><span class="swatch__n">Blue Royale ★</span><span class="swatch__h">#000c37</span><span class="swatch__r">Primary Dark</span></div>
+    <div class="swatch sw-ivoire"><span class="swatch__n">White</span><span class="swatch__h">#ffffff</span><span class="swatch__r">Space</span></div>
+    <div class="swatch sw-peach"><span class="swatch__n">Ambient Peach</span><span class="swatch__h">#ffc09c</span><span class="swatch__r">Signature</span></div>
+    <div class="swatch sw-creme"><span class="swatch__n">Cool Beige</span><span class="swatch__h">#ffffce</span><span class="swatch__r">Warmth</span></div>
+    <div class="swatch sw-air"><span class="swatch__n">Blush Blue</span><span class="swatch__h">#9cefea</span><span class="swatch__r">Fresh</span></div>
+    <div class="swatch sw-noir"><span class="swatch__n">Black</span><span class="swatch__h">#000000</span><span class="swatch__r">Text &amp; Detail</span></div>
+    <div class="swatch sw-vin"><span class="swatch__n">Burgundy</span><span class="swatch__h">#6e0029</span><span class="swatch__r">Seasonal</span></div>
+  </div>
+
+  <!-- COMBOS -->
+  <div class="combo-row">
+    <div class="combo" style="background:var(--royale); color:var(--ivoire);">
+      <span class="combo__tag">Signature — use most</span>
+      <span class="combo__head">Your Lagos<br>base is ready.</span>
+      <span class="combo__sub">3-bed in Ikoyi. Available now.</span>
+      <span class="combo__cta" style="color:var(--peach);">Book via link →</span>
+    </div>
+    <div class="combo" style="background:var(--peach); color:var(--noir);">
+      <span class="combo__tag" style="color:rgba(0,0,0,0.45);">Warm / promo</span>
+      <span class="combo__head">Stay like<br>you mean it.</span>
+      <span class="combo__sub" style="color:rgba(0,0,0,0.55);">25% off stays over 5 nights.</span>
+      <span class="combo__cta" style="color:var(--noir); border-color:var(--noir);">See the offer →</span>
+    </div>
+    <div class="combo" style="background:var(--air); color:var(--noir);">
+      <span class="combo__tag" style="color:rgba(0,0,0,0.45);">Fresh / lifestyle</span>
+      <span class="combo__head">Wake up<br>to this.</span>
+      <span class="combo__sub" style="color:rgba(0,0,0,0.55);">Floor-to-ceiling in V.I.</span>
+      <span class="combo__cta" style="color:var(--noir); border-color:rgba(0,0,0,0.4);">See the space →</span>
+    </div>
+    <div class="combo" style="background:var(--royale); color:var(--ivoire);">
+      <span class="combo__tag" style="color:rgba(255,255,255,0.35);">Trust / info</span>
+      <span class="combo__head">Verified.<br>Managed.<br>Bondd.</span>
+      <span class="combo__sub">Every property to Bondd standard.</span>
+      <span class="combo__cta" style="color:var(--peach);">Learn more →</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     03 — LAYOUT
+══════════════════════════════════════ -->
+<section class="wrap wrap--creme">
+  <div class="tag tag--muted">03 — Layout</div>
+
+  <div class="two-col">
+    <div>
+      <h2 class="display display--lg" style="margin-bottom:24px;">Bondd shapes.<br>Lenido colours.</h2>
+      <p class="body-copy body-copy--muted">
+        Lenido inherits the Bondd visual language completely — the squircle, the stacked pill, the filled-shape-as-content-holder. This is what makes it visibly part of the Bondd family.
+      </p>
+      <p class="body-copy body-copy--muted mt16">
+        What changes is which colors fill those shapes, and the margin increases from Bondd's 7% to Lenido's 9% — a small but deliberate step that creates a little more breathing room, fitting a hospitality brand where the guest should feel at ease rather than sold to.
+      </p>
+
+      <!-- Margin comparison -->
+      <div class="margin-pair">
+        <div>
+          <div style="aspect-ratio:1; background:var(--royale); position:relative; display:flex; align-items:center; justify-content:center;">
+            <div style="position:absolute; top:7%; left:0; right:0; text-align:center; font-family:var(--f-body); font-size:8px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3);">7%</div>
+            <div style="position:absolute; bottom:7%; left:0; right:0; text-align:center; font-family:var(--f-body); font-size:8px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3);">7%</div>
+            <div style="position:absolute; top:0; bottom:0; left:7%; display:flex; align-items:center; font-family:var(--f-body); font-size:8px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3); writing-mode:vertical-rl;">7%</div>
+            <div style="position:absolute; top:0; bottom:0; right:7%; display:flex; align-items:center; font-family:var(--f-body); font-size:8px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3); writing-mode:vertical-rl;">7%</div>
+            <div style="width:86%; height:86%; background:var(--air); display:flex; align-items:center; justify-content:center; border-radius:24% 24% 24% 24% / 24% 24% 24% 24%;">
+              <div style="font-family:var(--f-body); font-size:9px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(0,0,0,0.45); text-align:center;">Bondd Homes<br>7% margin</div>
+            </div>
+          </div>
+          <div class="label mt8" style="text-align:center;">Parent brand</div>
+        </div>
+        <div>
+          <div style="aspect-ratio:1; background:var(--royale); position:relative; display:flex; align-items:center; justify-content:center;">
+            <div style="position:absolute; top:9%; left:0; right:0; text-align:center; font-family:var(--f-body); font-size:8px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach);">9%</div>
+            <div style="position:absolute; bottom:9%; left:0; right:0; text-align:center; font-family:var(--f-body); font-size:8px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach);">9%</div>
+            <div style="position:absolute; top:0; bottom:0; left:9%; display:flex; align-items:center; font-family:var(--f-body); font-size:8px; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach); writing-mode:vertical-rl;">9%</div>
+            <div style="position:absolute; top:0; bottom:0; right:9%; display:flex; align-items:center; font-family:var(--f-body); font-size:8px; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach); writing-mode:vertical-rl;">9%</div>
+            <div style="width:82%; height:82%; background:var(--peach); display:flex; align-items:center; justify-content:center; border-radius:24% 24% 24% 24% / 24% 24% 24% 24%;">
+              <div style="font-family:var(--f-body); font-size:9px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(0,0,0,0.5); text-align:center;">Le NIDO<br>9% margin</div>
+            </div>
+          </div>
+          <div class="label mt8" style="text-align:center;">Lenido sub-brand</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label mb16">Shape vocabulary — shared with parent brand</div>
+
+      <!-- 3 shape demos -->
+      <div class="shape-row">
+        <!-- Squircle filled -->
+        <div>
+          <div style="aspect-ratio:1; background:var(--royale); display:flex; align-items:center; justify-content:center;">
+            <div style="width:84%; height:84%; background:var(--peach); border-radius:24% 24% 24% 24% / 24% 24% 24% 24%; display:flex; align-items:center; justify-content:center; padding:12%; text-align:center;">
+              <div style="font-family:'Syne'; font-weight:700; font-size:16px; color:var(--noir); line-height:1.0; letter-spacing:-0.01em;">Book<br>your<br>vibe.</div>
+            </div>
+          </div>
+          <div class="shape-note">Squircle — bold type fill</div>
+        </div>
+
+        <!-- Stacked pill pricing -->
+        <div>
+          <div style="aspect-ratio:1; background:var(--creme); display:flex; align-items:center; justify-content:center;">
+            <div style="width:52%; height:86%; background:var(--royale); border-radius:9999px; display:flex; flex-direction:column; align-items:center; justify-content:space-around; padding:14px 8px;">
+              <div style="text-align:center;">
+                <div style="font-family:var(--f-body); font-size:6px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Studio</div>
+                <div style="font-family:'Syne'; font-weight:700; font-size:12px; color:var(--peach); line-height:1.0;">₦55k</div>
+              </div>
+              <div style="width:65%; height:0.5px; background:rgba(255,255,255,0.12);"></div>
+              <div style="text-align:center;">
+                <div style="font-family:var(--f-body); font-size:6px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.35);">1 Bed</div>
+                <div style="font-family:'Syne'; font-weight:700; font-size:12px; color:var(--peach); line-height:1.0;">₦85k</div>
+              </div>
+              <div style="width:65%; height:0.5px; background:rgba(255,255,255,0.12);"></div>
+              <div style="text-align:center;">
+                <div style="font-family:var(--f-body); font-size:6px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.35);">2 Bed</div>
+                <div style="font-family:'Syne'; font-weight:700; font-size:12px; color:var(--peach); line-height:1.0;">₦120k</div>
+              </div>
+            </div>
+          </div>
+          <div class="shape-note">Stacked pill — pricing</div>
+        </div>
+
+        <!-- Circle image mask -->
+        <div>
+          <div style="aspect-ratio:1; background:var(--royale); display:flex; align-items:center; justify-content:center;">
+            <div style="width:80%; aspect-ratio:1; background:var(--peach); opacity:0.15; border-radius:50%;"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute; width:70%; height:70%;">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#ffc09c" stroke-width="1.5"/>
+              <text x="50" y="47" text-anchor="middle" font-family="'Fraunces',serif" font-style="italic" font-size="9" fill="rgba(255,255,255,0.4)" letter-spacing="-0.2">Photography</text>
+              <text x="50" y="59" text-anchor="middle" font-family="'Fraunces',serif" font-style="italic" font-size="9" fill="rgba(255,255,255,0.4)" letter-spacing="-0.2">lives here</text>
+            </svg>
+          </div>
+          <div class="shape-note">Circle / clover — image mask</div>
+        </div>
+      </div>
+
+      <!-- Squircle in 3 Lenido colorways -->
+      <div class="label mt24 mb16">Same shape — Lenido color system</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+        <div style="aspect-ratio:1; background:var(--royale); display:flex; align-items:center; justify-content:center;">
+          <div style="width:86%; height:86%; background:var(--peach); border-radius:24% 24% 24% 24% / 24% 24% 24% 24%; display:flex; align-items:center; justify-content:center; padding:10%; text-align:center;">
+            <span style="font-family:'Syne'; font-weight:700; font-size:13px; color:var(--noir); line-height:1.0; letter-spacing:-0.01em;">Stay like<br>you mean it.</span>
+          </div>
+        </div>
+        <div style="aspect-ratio:1; background:var(--royale); display:flex; align-items:center; justify-content:center;">
+          <div style="width:86%; height:86%; background:var(--air); border-radius:24% 24% 24% 24% / 24% 24% 24% 24%; display:flex; align-items:center; justify-content:center; padding:10%; text-align:center;">
+            <span style="font-family:'Syne'; font-weight:700; font-size:13px; color:var(--noir); line-height:1.0; letter-spacing:-0.01em;">Wake up<br>to this.</span>
+          </div>
+        </div>
+        <div style="aspect-ratio:1; background:var(--peach); display:flex; align-items:center; justify-content:center;">
+          <div style="width:86%; height:86%; background:var(--royale); border-radius:24% 24% 24% 24% / 24% 24% 24% 24%; display:flex; align-items:center; justify-content:center; padding:10%; text-align:center;">
+            <span style="font-family:'Syne'; font-weight:700; font-size:13px; color:var(--ivoire); line-height:1.0; letter-spacing:-0.01em;">Your<br>Lagos<br>base.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SOCIAL POSTS — the full 6-post system -->
+<section class="wrap">
+  <div class="tag">03.1 — Social Post System</div>
+  <h3 class="display display--md" style="margin-bottom:16px;">Six post templates</h3>
+  <p class="body-copy body-copy--muted" style="max-width:620px; margin-bottom:0;">Lenido is a social-first brand. These six templates cover every content need — property announcements, pricing, lifestyle, promos, trust, and testimonials. Each uses the Bondd shape system and Lenido's color rules.</p>
+
+  <div class="posts-row">
+
+    <!-- Post 01: Squircle bold — property announcement -->
+    <div>
+      <div class="post" style="background:var(--royale);">
+        <div class="post__handle" style="color:rgba(255,255,255,0.3);">@lenido.bondd</div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div style="width:92%; height:88%; background:var(--peach); border-radius:24% 24% 24% 24% / 24% 24% 24% 24%; display:flex; align-items:center; justify-content:center; padding:12%; text-align:center;">
+            <div>
+              <div style="font-family:'Syne'; font-weight:700; font-size:15px; color:var(--noir); line-height:0.95; letter-spacing:-0.015em;">Your kind<br>of Lagos.</div>
+              <div style="width:24px; height:1.5px; background:var(--royale); margin:10px auto; opacity:0.3;"></div>
+              <div style="font-family:'DM Sans'; font-size:7px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,0,0,0.45);">New listing · Ikoyi</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:1px; background:rgba(255,192,156,0.3); margin-bottom:7px;"></div>
+        <div class="post__handle" style="color:rgba(255,255,255,0.25);">Link in bio →</div>
+      </div>
+      <div class="shape-note" style="margin-top:10px;">01 — Squircle drop</div>
+    </div>
+
+    <!-- Post 02: Photo + overlay -->
+    <div>
+      <div class="post" style="background:var(--royale);">
+        <div class="post__handle" style="color:rgba(255,255,255,0.25);">lenido.bondd.com</div>
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:8px;">
+          <div style="width:80%; aspect-ratio:1; border-radius:50%; background:rgba(255,192,156,0.1); border:1px solid rgba(255,192,156,0.2);"></div>
+        </div>
+        <div>
+          <div style="height:1.5px; background:var(--peach); opacity:0.7; margin-bottom:10px;"></div>
+          <div style="font-family:'Syne'; font-weight:700; font-size:14px; color:var(--ivoire); line-height:0.95; letter-spacing:-0.01em; margin-bottom:6px;">3-bed, V.I.<br>₦120k/night.</div>
+          <div style="font-family:'DM Sans'; font-size:7px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach);">Book via link in bio</div>
+        </div>
+      </div>
+      <div class="shape-note" style="margin-top:10px;">02 — Photo card</div>
+    </div>
+
+    <!-- Post 03: Stacked pill pricing -->
+    <div>
+      <div class="post" style="background:var(--creme);">
+        <div style="font-family:'Syne'; font-weight:700; font-size:14px; color:var(--noir); line-height:0.95; letter-spacing:-0.01em;">Available<br>now.</div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div style="width:50%; height:82%; background:var(--royale); border-radius:9999px; display:flex; flex-direction:column; align-items:center; justify-content:space-around; padding:12px 6px;">
+            <div style="text-align:center;"><div style="font-family:'DM Sans'; font-size:6px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Studio</div><div style="font-family:'Syne'; font-weight:700; font-size:12px; color:var(--peach);">₦55k</div></div>
+            <div style="width:60%; height:0.5px; background:rgba(255,255,255,0.1);"></div>
+            <div style="text-align:center;"><div style="font-family:'DM Sans'; font-size:6px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3);">1 Bed</div><div style="font-family:'Syne'; font-weight:700; font-size:12px; color:var(--peach);">₦85k</div></div>
+            <div style="width:60%; height:0.5px; background:rgba(255,255,255,0.1);"></div>
+            <div style="text-align:center;"><div style="font-family:'DM Sans'; font-size:6px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3);">2 Bed</div><div style="font-family:'Syne'; font-weight:700; font-size:12px; color:var(--peach);">₦120k</div></div>
+          </div>
+        </div>
+        <div class="post__handle" style="color:rgba(0,0,0,0.3);">lenido.bondd.com</div>
+      </div>
+      <div class="shape-note" style="margin-top:10px;">03 — Pricing pill</div>
+    </div>
+
+    <!-- Post 04: Full peach — campaign / promo -->
+    <div>
+      <div class="post" style="background:var(--peach);">
+        <div class="post__handle" style="color:rgba(0,0,0,0.35);">New drop</div>
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:6px;">
+          <div style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:12px; color:rgba(0,0,0,0.5); line-height:1.2;">Spend the night in</div>
+          <div style="font-family:'Syne'; font-weight:700; font-size:22px; color:var(--noir); line-height:0.88; letter-spacing:-0.02em;">Ikoyi.<br>From<br>₦85k.</div>
+        </div>
+        <div>
+          <div style="height:0.5px; background:rgba(0,0,0,0.18); margin-bottom:8px;"></div>
+          <div style="font-family:'DM Sans'; font-size:7px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(0,0,0,0.45);">Link in bio to book</div>
+        </div>
+      </div>
+      <div class="shape-note" style="margin-top:10px;">04 — Peach campaign</div>
+    </div>
+
+    <!-- Post 05: Air / lifestyle -->
+    <div>
+      <div class="post" style="background:var(--air);">
+        <div class="post__handle" style="color:rgba(0,0,0,0.35);">Good morning, Lagos.</div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div style="width:76%; aspect-ratio:1; background:rgba(0,0,0,0.07); border-radius:50%;"></div>
+        </div>
+        <div>
+          <div style="font-family:'Syne'; font-weight:700; font-size:14px; color:var(--noir); line-height:0.95; letter-spacing:-0.01em; margin-bottom:6px;">This is what<br>mornings feel like.</div>
+          <div style="font-family:'DM Sans'; font-size:7px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,0,0,0.4);">Lekki · 2-bed · Dec 15</div>
+        </div>
+      </div>
+      <div class="shape-note" style="margin-top:10px;">05 — Air lifestyle</div>
+    </div>
+
+    <!-- Post 06: Fraunces testimonial — emotional -->
+    <div>
+      <div class="post" style="background:var(--royale);">
+        <div style="height:1.5px; background:var(--peach); opacity:0.5;"></div>
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
+          <div style="font-family:'Fraunces'; font-style:italic; font-weight:400; font-size:14px; color:rgba(255,255,255,0.75); line-height:1.35; letter-spacing:-0.005em;">"This is the one you tell people about."</div>
+          <div style="width:20px; height:0.5px; background:var(--peach); opacity:0.6;"></div>
+          <div style="font-family:'DM Sans'; font-size:8px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Tobi A. — Lagos</div>
+        </div>
+        <div style="height:1px; background:rgba(255,192,156,0.25); margin-bottom:7px;"></div>
+        <div style="font-family:'DM Sans'; font-size:7px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--peach);">lenido.bondd.com</div>
+      </div>
+      <div class="shape-note" style="margin-top:10px;">06 — Fraunces testimonial</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     TONE OF VOICE
+══════════════════════════════════════ -->
+<section class="wrap wrap--dark">
+  <div class="tag tag--light">04 — Tone of Voice</div>
+  <h2 class="display display--md" style="color:var(--ivoire); margin-bottom:16px;">Say it like you live here.</h2>
+  <p class="body-copy body-copy--light" style="max-width:560px; margin-bottom:0;">Copy should feel like it was written by someone who lives in Lagos, travels often, and knows good taste. Direct, warm, confident. Not corporate. Not trying too hard.</p>
+
+  <div class="tov-pair">
+    <div class="tov">
+      <div class="tov__verdict tov__verdict--y">✓ Lenido</div>
+      <div class="tov__copy">"Stay like you mean it."</div>
+      <p class="tov__note" style="color:rgba(0,0,0,0.5);">Three words. Speaks to intention, not features. Works on a billboard, a post, a website header.</p>
+    </div>
+    <div class="tov tov--dark">
+      <div class="tov__verdict tov__verdict--nl">✕ Not Lenido</div>
+      <div class="tov__copy" style="color:rgba(255,255,255,0.72); text-decoration:line-through; text-decoration-color:rgba(220,60,60,0.5);">"Experience unparalleled luxury accommodation in the heart of Lagos Island."</div>
+      <p class="tov__note" style="color:rgba(255,255,255,0.55);">Generic hotel language. Could be written by anyone. No Lagos energy, no personality.</p>
+    </div>
+    <div class="tov tov--creme">
+      <div class="tov__verdict tov__verdict--y">✓ Lenido</div>
+      <div class="tov__copy">"Your Lagos base. No compromises."</div>
+      <p class="tov__note" style="color:rgba(0,0,0,0.5);">Talks to the diaspora guest directly. "Base" implies ownership for the duration. "No compromises" addresses the fear head-on.</p>
+    </div>
+    <div class="tov tov--royale">
+      <div class="tov__verdict tov__verdict--nl">✕ Not Lenido</div>
+      <div class="tov__copy" style="color:rgba(255,255,255,0.72); text-decoration:line-through; text-decoration-color:rgba(220,60,60,0.5);">"Affordable prices for every budget!"</div>
+      <p class="tov__note" style="color:rgba(255,255,255,0.55);">Undermines the premium positioning entirely. Lenido is great value for what it is — never "cheap." Never lead with price anxiety.</p>
+    </div>
+    <div class="tov">
+      <div class="tov__verdict tov__verdict--y">✓ Lenido</div>
+      <div class="tov__copy">"Wake up to this."</div>
+      <p class="tov__note" style="color:rgba(0,0,0,0.5);">Paired with a great interior shot, it closes without a single adjective. The image earns it, the copy confirms it.</p>
+    </div>
+    <div class="tov tov--dark">
+      <div class="tov__verdict tov__verdict--nl">✕ Not Lenido</div>
+      <div class="tov__copy" style="color:rgba(255,255,255,0.72); text-decoration:line-through; text-decoration-color:rgba(220,60,60,0.5);">"Book now and enjoy our world-class amenities and premium facilities!"</div>
+      <p class="tov__note" style="color:rgba(255,255,255,0.55);">Exclamation marks, jargon, listing features. The Lenido guest knows what good looks like — show them, don't list it.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     05 — BRAND RELATIONSHIP
+══════════════════════════════════════ -->
+<section class="wrap">
+  <div class="tag">05 — Bondd ↔ Lenido</div>
+  <h2 class="display display--md" style="margin-bottom:24px;">Same family.<br>Different conversation.</h2>
+  <p class="body-copy body-copy--muted" style="max-width:600px;">The visual grammar is shared. The vocabulary is different. Someone who knows Bondd Homes should see Lenido and immediately understand it belongs to that world — and then notice that it's speaking in a warmer, more personal register.</p>
+
+  <div class="brand-split">
+    <div class="brand-col brand-col--p">
+      <div class="brand-col__eyebrow">Parent Brand</div>
+      <div class="brand-col__name">Bondd<br>Homes</div>
+      <div style="font-family:'Fraunces'; font-style:italic; font-size:14px; color:rgba(255,255,255,0.4); line-height:1.3; margin-bottom:8px;">Development company.</div>
+      <div class="brand-col__item">7% margin on all compositions</div>
+      <div class="brand-col__item">Full 10-color palette available</div>
+      <div class="brand-col__item">Squircle shapes with bold filled color</div>
+      <div class="brand-col__item">Tiller + Grantha Sangam type system</div>
+      <div class="brand-col__item">All-caps, maximum weight energy</div>
+      <div class="brand-col__item">Property buyers + investors</div>
+    </div>
+    <div class="brand-col brand-col--s">
+      <div class="brand-col__eyebrow" style="color:var(--peach);">Sub-brand · Short-Term Rental</div>
+      <div class="brand-col__name">Le NIDO<br>by Bondd</div>
+      <div style="font-family:'Fraunces'; font-style:italic; font-size:14px; color:rgba(255,255,255,0.4); line-height:1.3; margin-bottom:8px;">Hospitality expression.</div>
+      <div class="brand-col__item">9% margin — slightly more breathing room</div>
+      <div class="brand-col__item">7 Bondd colors (Neon Orange, Vibrant Blue, Outer Green excluded)</div>
+      <div class="brand-col__item">Same shapes — also used as image masks</div>
+      <div class="brand-col__item">Syne + Fraunces Italic + DM Sans — all Google Fonts</div>
+      <div class="brand-col__item">Blue Royale as dark foundation — not plain black</div>
+      <div class="brand-col__item">Lagos professionals + diaspora Nigerians</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CLOSING -->
+<section class="cover" style="min-height:55vh;">
+  <div class="cover__glow1"></div>
+  <div class="cover__glow2"></div>
+  <div class="cover__eyebrow">Le NIDO by Bondd</div>
+  <div style="text-align:center; padding:32px 0;">
+    <div class="warm warm--lg" style="color:rgba(255,255,255,0.28); max-width:580px; margin:0 auto; line-height:1.35;">
+      "Every post should feel premium without feeling exclusive."
+    </div>
+  </div>
+  <div class="cover__foot">
+    <div>
+      <div style="font-family:'Syne'; font-weight:700; font-size:24px; color:var(--ivoire); letter-spacing:-0.02em; line-height:0.9;">NIDO</div>
+      <div style="font-family:var(--f-body); font-size:10px; font-weight:500; letter-spacing:0.25em; text-transform:uppercase; color:var(--peach); margin-top:8px;">by bondd</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:var(--f-body); font-size:9px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.18);">Brand Identity · Short-Term Rental</div>
+      <div style="font-family:var(--f-body); font-size:9px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.12); margin-top:4px;">Lagos · 2025</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
