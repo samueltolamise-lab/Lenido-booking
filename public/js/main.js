@@ -208,3 +208,107 @@ function renderProperties(grid, properties) {
 }
 
 loadProperties();
+
+// ──────────────────────────────────────────────
+// Site settings from Sanity
+// ──────────────────────────────────────────────
+async function loadSiteContent() {
+  try {
+    const [settingsRes, reviewsRes] = await Promise.all([
+      fetch('/api/content/settings'),
+      fetch('/api/content/reviews'),
+    ]);
+
+    const settingsJson = await settingsRes.json();
+    const reviewsJson  = await reviewsRes.json();
+
+    if (settingsJson.success && settingsJson.data) {
+      applySettings(settingsJson.data);
+    }
+
+    if (reviewsJson.success && reviewsJson.data?.length) {
+      renderReviews(reviewsJson.data);
+    }
+  } catch {
+    // Silently fall back to hardcoded defaults
+  }
+}
+
+function applySettings(s) {
+  // Hero
+  if (s.tagline) {
+    // Split on comma or period to get two lines
+    const parts = s.tagline.split(/,\s*/);
+    const heading = document.getElementById('hero-heading');
+    const warm    = document.getElementById('hero-title-warm');
+    if (heading && parts[0]) heading.textContent = parts[0].trim() + (parts.length > 1 ? '' : '');
+    if (warm    && parts[1]) warm.textContent    = parts[1].trim();
+  }
+
+  if (s.heroSubtitle) {
+    const el = document.getElementById('hero-subtitle');
+    if (el) el.textContent = s.heroSubtitle;
+  }
+
+  if (s.heroImage) {
+    const img = document.querySelector('.hero-bg-img');
+    if (img) img.src = s.heroImage;
+  }
+
+  // Footer tagline
+  if (s.tagline || s.heroSubtitle) {
+    const footer = document.getElementById('footer-tagline');
+    if (footer && s.footerTagline) footer.textContent = s.footerTagline;
+  }
+
+  // Trust bar
+  if (s.trustBar?.length) {
+    const bar = document.getElementById('trust-bar-inner');
+    if (bar) {
+      bar.innerHTML = s.trustBar.map((stat, i) => `
+        ${i > 0 ? '<div class="trust-divider" aria-hidden="true"></div>' : ''}
+        <div class="trust-stat">
+          <strong>${stat.value}</strong>
+          <span>${stat.label}</span>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Perks
+  if (s.perks?.length) {
+    const grid = document.getElementById('perks-grid');
+    if (grid) {
+      grid.innerHTML = s.perks.map(perk => `
+        <div class="perk-card">
+          <div class="perk-icon" aria-hidden="true">${perk.icon || '✦'}</div>
+          <h3>${perk.title}</h3>
+          <p>${perk.description}</p>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+function renderReviews(reviews) {
+  const grid = document.getElementById('testimonials-grid');
+  if (!grid) return;
+
+  const stars = (n) => '★'.repeat(n || 5);
+
+  grid.innerHTML = reviews.map(r => `
+    <article class="testimonial-card">
+      <div class="testimonial-stars" aria-label="${r.rating} stars">${stars(r.rating)}</div>
+      <blockquote class="testimonial-quote">"${r.review}"</blockquote>
+      <footer class="testimonial-author">
+        <div class="author-avatar" aria-hidden="true">${r.guestName?.[0] || '?'}</div>
+        <div>
+          <strong>${r.guestName}</strong>
+          <span>${[r.guestOrigin, r.stayMonth].filter(Boolean).join(' · ')}</span>
+        </div>
+      </footer>
+    </article>
+  `).join('');
+}
+
+loadSiteContent();
