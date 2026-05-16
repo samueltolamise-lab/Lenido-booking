@@ -155,10 +155,10 @@ function renderProperty(p) {
     });
   }
 
-  // WhatsApp links — pre-fill with property name
-  const waMsg = encodeURIComponent(`Hi, I'd like to enquire about ${p.name}`);
-  const waNumber = '2348000000000';
-  const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
+  // WhatsApp links — pre-fill with property name, number from Railway env via /api/config
+  const waMsg    = encodeURIComponent(`Hi, I'd like to enquire about ${p.name}`);
+  const waNumber = window.__LENIDO_CONFIG__?.whatsappNumber || '2348000000000';
+  const waUrl    = `https://wa.me/${waNumber}?text=${waMsg}`;
   document.querySelectorAll('#prop-whatsapp-btn, #header-whatsapp').forEach(el => {
     el.href = waUrl;
   });

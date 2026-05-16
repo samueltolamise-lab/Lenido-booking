@@ -6,26 +6,26 @@
 // so HOST_WHATSAPP_NUMBER in Railway controls all buttons.
 // ============================================================
 
-(async function () {
+// Expose a promise so other scripts can await the config being ready
+window.__LENIDO_CONFIG_READY__ = (async function () {
   try {
     const res  = await fetch('/api/config');
     const json = await res.json();
     if (!json.success) return;
+
+    // Expose globally immediately so any script can use it
+    window.__LENIDO_CONFIG__ = json.data;
 
     const { whatsappNumber } = json.data;
     if (!whatsappNumber) return;
 
     // Replace every wa.me link on the page with the real number
     document.querySelectorAll('a[href*="wa.me/"]').forEach(link => {
-      const url = new URL(link.href);
-      // Preserve the ?text= query param if present
+      const url  = new URL(link.href);
       const text = url.searchParams.get('text');
       const base = `https://wa.me/${whatsappNumber}`;
       link.href  = text ? `${base}?text=${encodeURIComponent(text)}` : base;
     });
-
-    // Expose globally so booking.js / payment.js can use it
-    window.__LENIDO_CONFIG__ = json.data;
 
   } catch {
     // Server not reachable — links stay as-is (fallback number in HTML)
