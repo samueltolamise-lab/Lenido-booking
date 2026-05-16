@@ -3,9 +3,9 @@
 require('dotenv').config();
 
 const properties = {
-  'lekki-01': {
-    id: 'lekki-01',
-    name: 'Le Nido Lekki 01',
+  'forge': {
+    id: 'forge',
+    name: 'Le Nido — Forge',
     type: 'Studio',
     location: 'Lekki Phase 1, Lagos',
     tagline: 'Your private retreat in the heart of Lekki',
@@ -34,16 +34,28 @@ const properties = {
       month: 1800000,
     },
     images: [
-      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
-      'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1200&q=80',
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80',
+      '/assets/properties/Forge/Studio_2.jpg',
+      '/assets/properties/Forge/Studio_5.jpg',
+      '/assets/properties/Forge/Studio_6.jpg',
+      '/assets/properties/Forge/Studio_9.jpg',
+      '/assets/properties/Forge/Studio_10.jpg',
+      '/assets/properties/Forge/Studio_11.jpg',
+      '/assets/properties/Forge/Studio_12.jpg',
+      '/assets/properties/Forge/Studio_13.jpg',
+      '/assets/properties/Forge/Studio_14.jpg',
+      '/assets/properties/Forge/Studio_15.jpg',
+      '/assets/properties/Forge/Studio_16.jpg',
+      '/assets/properties/Forge/Studio_17.jpg',
+      '/assets/properties/Forge/Studio_18.jpg',
+      '/assets/properties/Forge/Studio_19.jpg',
+      '/assets/properties/Forge/Studio_20.jpg',
     ],
-    icalUrl: process.env.ICAL_URL_LEKKI_01 || '',
+    icalUrl: process.env.ICAL_URL_FORGE || '',
   },
 
-  'lekki-02': {
-    id: 'lekki-02',
-    name: 'Le Nido Lekki 02',
+  'cedar': {
+    id: 'cedar',
+    name: 'Le Nido — Cedar',
     type: '1 Bedroom',
     location: 'Lekki Phase 1, Lagos',
     tagline: 'Spacious comfort with a Lagos state of mind',
@@ -74,11 +86,24 @@ const properties = {
       month: 2500000,
     },
     images: [
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80',
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80',
-      'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80',
+      '/assets/properties/Cedar/Image_1.jpg',
+      '/assets/properties/Cedar/Image_2.jpg',
+      '/assets/properties/Cedar/Image_3.jpg',
+      '/assets/properties/Cedar/Image_4.jpg',
+      '/assets/properties/Cedar/Image_5.jpg',
+      '/assets/properties/Cedar/Image_6.jpg',
+      '/assets/properties/Cedar/Image_7.jpg',
+      '/assets/properties/Cedar/Image_8.jpg',
+      '/assets/properties/Cedar/Image_9.jpg',
+      '/assets/properties/Cedar/Image_10.jpg',
+      '/assets/properties/Cedar/Image_11.jpg',
+      '/assets/properties/Cedar/Image_12.jpg',
+      '/assets/properties/Cedar/Image_13.jpg',
+      '/assets/properties/Cedar/Image_14.jpg',
+      '/assets/properties/Cedar/Image_15.jpg',
+      '/assets/properties/Cedar/Image_16.jpg',
     ],
-    icalUrl: process.env.ICAL_URL_LEKKI_02 || '',
+    icalUrl: process.env.ICAL_URL_CEDAR || '',
   },
 };
 
