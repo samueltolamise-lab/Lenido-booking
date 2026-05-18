@@ -64,6 +64,37 @@ export const siteSettings = defineType({
       description: 'Optional — shown in the footer if provided.',
     }),
 
+    // ── Footer ──────────────────────────────────────
+    defineField({
+      name: 'footerTagline',
+      title: 'Footer Tagline',
+      type: 'string',
+      initialValue: 'Premium short-stay apartments in Lekki, Lagos.',
+    }),
+
+    defineField({
+      name: 'footerAddress',
+      title: 'Footer Address',
+      type: 'string',
+      initialValue: 'Lekki Phase 1, Lagos, Nigeria',
+    }),
+
+    // ── Properties Section ──────────────────────────────────────
+    defineField({
+      name: 'propertiesSectionTitle',
+      title: 'Properties Section — Heading',
+      type: 'string',
+      initialValue: 'Available Properties',
+    }),
+
+    defineField({
+      name: 'propertiesSectionSubtitle',
+      title: 'Properties Section — Subtitle',
+      type: 'text',
+      rows: 2,
+      initialValue: 'Hand-picked apartments in Lekki Phase 1 — styled for comfort, priced fairly.',
+    }),
+
     // ── Trust Bar ──────────────────────────────────────
     defineField({
       name: 'trustBar',
@@ -83,6 +114,21 @@ export const siteSettings = defineType({
         },
       ],
       validation: (R) => R.max(4),
+    }),
+
+    // ── Why Choose Us Section ──────────────────────────────────────
+    defineField({
+      name: 'whyChooseUsEyebrow',
+      title: '"Why Choose Us" — Eyebrow label',
+      type: 'string',
+      initialValue: 'No middlemen',
+    }),
+
+    defineField({
+      name: 'whyChooseUsHeading',
+      title: '"Why Choose Us" — Section heading',
+      type: 'string',
+      initialValue: 'Why Choose Us',
     }),
 
     // ── Perks ──────────────────────────────────────

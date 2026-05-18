@@ -71,12 +71,7 @@ function daysBetween(checkIn, checkOut) {
   return Math.round((toDateOnly(checkOut) - toDateOnly(checkIn)) / msPerDay);
 }
 
-function isLastMinute(checkIn) {
-  const now = Date.now();
-  const checkInTime = toDateOnly(checkIn).getTime();
-  const hoursUntil = (checkInTime - now) / (1000 * 60 * 60);
-  return hoursUntil > 0 && hoursUntil <= 48;
-}
+function isLastMinute() { return false; } // reserved — not in use
 
 function calculatePrice(property, checkIn, checkOut) {
   const nights = daysBetween(checkIn, checkOut);
@@ -146,17 +141,6 @@ function calculatePrice(property, checkIn, checkOut) {
 
   let total = Math.round(subtotal * (1 - discountRate));
 
-  // Last minute discount — applied after long stay discount
-  if (isLastMinute(checkIn)) {
-    const lastMinuteSaving = Math.round(total * 0.15);
-    total = Math.round(total * 0.85);
-    discounts.push({
-      reason: 'Last minute booking (within 48hrs)',
-      rate: '-15%',
-      saving: lastMinuteSaving,
-    });
-  }
-
   const totalSavings = discounts.reduce((sum, d) => sum + d.saving, 0);
 
   return {
@@ -172,4 +156,4 @@ function calculatePrice(property, checkIn, checkOut) {
   };
 }
 
-module.exports = { calculatePrice, daysBetween, isLastMinute };
+module.exports = { calculatePrice, daysBetween };

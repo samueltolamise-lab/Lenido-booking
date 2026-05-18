@@ -83,6 +83,17 @@ router.post('/initialize', async (req, res) => {
     return res.status(400).json({ success: false, error: 'Check-out must be after check-in' });
   }
 
+  // Minimum night stay check
+  const { daysBetween } = require('../services/pricing');
+  const requestedNights = daysBetween(checkIn, checkOut);
+  const minNights = property.minimumNights || 2;
+  if (requestedNights < minNights) {
+    return res.status(400).json({
+      success: false,
+      error: `Minimum stay is ${minNights} night${minNights > 1 ? 's' : ''} for this property.`,
+    });
+  }
+
   // Availability check
   if (!isRangeAvailable(propertyId, checkIn, checkOut)) {
     return res.status(409).json({ success: false, error: 'Selected dates are not available' });

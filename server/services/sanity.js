@@ -62,6 +62,7 @@ const PROPERTY_QUERY = `
     bathrooms,
     maxGuests,
     amenities,
+    minimumNights,
     pricing,
     icalUrl,
     "images": images[].asset->url
@@ -90,6 +91,12 @@ const SETTINGS_QUERY = `
     email,
     trustBar,
     perks,
+    propertiesSectionTitle,
+    propertiesSectionSubtitle,
+    whyChooseUsEyebrow,
+    whyChooseUsHeading,
+    footerTagline,
+    footerAddress,
     "heroImage": heroImage.asset->url
   }
 `;

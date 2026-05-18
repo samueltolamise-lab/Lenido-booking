@@ -252,13 +252,42 @@ function applySettings(s) {
 
   if (s.heroImage) {
     const img = document.querySelector('.hero-bg-img');
-    if (img) img.src = s.heroImage;
+    if (img) {
+      const preload = new Image();
+      preload.onload = () => {
+        img.src = s.heroImage;
+        img.style.opacity = '1';
+      };
+      preload.src = s.heroImage;
+    }
   }
 
-  // Footer tagline
-  if (s.tagline || s.heroSubtitle) {
-    const footer = document.getElementById('footer-tagline');
-    if (footer && s.footerTagline) footer.textContent = s.footerTagline;
+  // Footer
+  if (s.footerTagline) {
+    document.querySelectorAll('#footer-tagline').forEach(el => { el.textContent = s.footerTagline; });
+  }
+  if (s.footerAddress) {
+    document.querySelectorAll('#footer-address').forEach(el => { el.textContent = s.footerAddress; });
+  }
+
+  // Why Choose Us section
+  if (s.whyChooseUsEyebrow) {
+    const el = document.getElementById('perks-eyebrow');
+    if (el) el.textContent = s.whyChooseUsEyebrow;
+  }
+  if (s.whyChooseUsHeading) {
+    const el = document.getElementById('perks-heading');
+    if (el) el.textContent = s.whyChooseUsHeading;
+  }
+
+  // Properties section
+  if (s.propertiesSectionTitle) {
+    const el = document.getElementById('properties-heading');
+    if (el) el.textContent = s.propertiesSectionTitle;
+  }
+  if (s.propertiesSectionSubtitle) {
+    const el = document.getElementById('properties-lead');
+    if (el) el.textContent = s.propertiesSectionSubtitle;
   }
 
   // Trust bar

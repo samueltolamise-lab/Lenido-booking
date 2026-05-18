@@ -191,8 +191,9 @@ async function initDatePickers() {
     dateFormat: 'Y-m-d',
     onChange(selectedDates) {
       if (selectedDates[0]) {
+        const minNights = window.__PROPERTY_MIN_NIGHTS__ || 2;
         const minOut = new Date(selectedDates[0]);
-        minOut.setDate(minOut.getDate() + 1);
+        minOut.setDate(minOut.getDate() + minNights);
         checkOutPicker.set('minDate', minOut);
         checkOutPicker.clear();
         resetPriceBreakdown();
@@ -375,6 +376,7 @@ async function init() {
   }
 
   currentProperty = property;
+  window.__PROPERTY_MIN_NIGHTS__ = property.minimumNights || 2;
   renderProperty(property);
   await initDatePickers();
 

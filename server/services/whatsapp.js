@@ -31,22 +31,45 @@ async function sendWebhook(payload) {
 async function notifyGuestBookingConfirmed(booking) {
   const payload = {
     type: 'guest_confirmation',
+    // WhatsApp
     to: booking.guestPhone,
+    // Email
+    guestEmail: booking.guestEmail,
+    // Booking details
     guestName: booking.guestName,
     propertyName: booking.propertyName,
     checkIn: formatDate(booking.checkIn),
     checkOut: formatDate(booking.checkOut),
+    checkInRaw: booking.checkIn,
+    checkOutRaw: booking.checkOut,
     nights: booking.nights,
     total: formatNGN(booking.total),
     bookingId: booking.bookingId,
+    paystackRef: booking.paystackRef,
+    // Pre-formatted WhatsApp message
     message:
       `Hi ${booking.guestName}! 🎉 Your booking at ${booking.propertyName} is confirmed.\n\n` +
       `📅 Check-in: ${formatDate(booking.checkIn)}\n` +
       `📅 Check-out: ${formatDate(booking.checkOut)}\n` +
       `🌙 Nights: ${booking.nights}\n` +
-      `💰 Total paid: ${formatNGN(booking.total)}\n\n` +
+      `💰 Total paid: ${formatNGN(booking.total)}\n` +
+      `🔖 Booking ID: ${booking.bookingId}\n\n` +
       `We will send you check-in details 24 hours before your arrival. ` +
       `If you have any questions, reply to this message. Welcome to Le Nido! 🏡`,
+    // Pre-formatted email subject & body for Make.com
+    emailSubject: `Booking Confirmed — ${booking.propertyName} | ${booking.bookingId}`,
+    emailBody:
+      `Hi ${booking.guestName},\n\n` +
+      `Your booking at Le Nido is confirmed! Here are your details:\n\n` +
+      `Property: ${booking.propertyName}\n` +
+      `Check-in: ${formatDate(booking.checkIn)}\n` +
+      `Check-out: ${formatDate(booking.checkOut)}\n` +
+      `Nights: ${booking.nights}\n` +
+      `Total paid: ${formatNGN(booking.total)}\n` +
+      `Booking ID: ${booking.bookingId}\n\n` +
+      `We'll send check-in instructions 24 hours before your arrival.\n\n` +
+      `Questions? Reply to this email or WhatsApp us directly.\n\n` +
+      `Le Nido by Bondd`,
   };
 
   try {

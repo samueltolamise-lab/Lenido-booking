@@ -98,6 +98,16 @@ export const property = defineType({
       initialValue: 2,
     }),
 
+    // Booking rules
+    defineField({
+      name: 'minimumNights',
+      title: 'Minimum Night Stay',
+      type: 'number',
+      description: 'Guests cannot book fewer than this many nights.',
+      initialValue: 2,
+      validation: (R) => R.required().min(1),
+    }),
+
     // Amenities
     defineField({
       name: 'amenities',

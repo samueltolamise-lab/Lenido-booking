@@ -9,25 +9,44 @@
 // Expose a promise so other scripts can await the config being ready
 window.__LENIDO_CONFIG_READY__ = (async function () {
   try {
-    const res  = await fetch('/api/config');
-    const json = await res.json();
-    if (!json.success) return;
+    // Load runtime config (WhatsApp number, Paystack key) and site settings in parallel
+    const [configRes, settingsRes] = await Promise.all([
+      fetch('/api/config'),
+      fetch('/api/content/settings'),
+    ]);
 
-    // Expose globally immediately so any script can use it
-    window.__LENIDO_CONFIG__ = json.data;
+    const configJson   = await configRes.json();
+    const settingsJson = await settingsRes.json();
 
-    const { whatsappNumber } = json.data;
-    if (!whatsappNumber) return;
+    // ── Runtime config ──
+    if (configJson.success) {
+      window.__LENIDO_CONFIG__ = configJson.data;
 
-    // Replace every wa.me link on the page with the real number
-    document.querySelectorAll('a[href*="wa.me/"]').forEach(link => {
-      const url  = new URL(link.href);
-      const text = url.searchParams.get('text');
-      const base = `https://wa.me/${whatsappNumber}`;
-      link.href  = text ? `${base}?text=${encodeURIComponent(text)}` : base;
-    });
+      const { whatsappNumber } = configJson.data;
+      if (whatsappNumber) {
+        // Replace every wa.me link on the page with the real number
+        document.querySelectorAll('a[href*="wa.me/"]').forEach(link => {
+          const url  = new URL(link.href);
+          const text = url.searchParams.get('text');
+          const base = `https://wa.me/${whatsappNumber}`;
+          link.href  = text ? `${base}?text=${encodeURIComponent(text)}` : base;
+        });
+      }
+    }
+
+    // ── Site settings — apply on every page ──
+    if (settingsJson.success && settingsJson.data) {
+      const s = settingsJson.data;
+
+      if (s.footerTagline) {
+        document.querySelectorAll('#footer-tagline').forEach(el => { el.textContent = s.footerTagline; });
+      }
+      if (s.footerAddress) {
+        document.querySelectorAll('#footer-address').forEach(el => { el.textContent = s.footerAddress; });
+      }
+    }
 
   } catch {
-    // Server not reachable — links stay as-is (fallback number in HTML)
+    // Server not reachable — content stays as hardcoded defaults
   }
 })();
